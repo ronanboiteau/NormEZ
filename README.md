@@ -33,6 +33,7 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
  - Missing or corrupted header.
  - Functions that contain more than 20 lines.
+ - Several semi-colons the same line.
 
 ## Author
 

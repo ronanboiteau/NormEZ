@@ -1,5 +1,9 @@
 class String
 
+  def each_char
+    self.split("").each { |i| yield i }
+  end
+
   def add_style(color_code)
     "\e[#{color_code}m#{self}\e[0m"
   end
@@ -108,6 +112,7 @@ class CodingStyleChecker
     check_too_broad_filename
     check_header
     check_function_lines
+    check_too_many_assignments
   end
 
   def check_too_many_columns
@@ -154,6 +159,28 @@ class CodingStyleChecker
         function_start = line_nb
       else
         count += 1
+      end
+      line_nb += 1
+    end
+  end
+
+  def check_too_many_assignments
+    line_nb = 1
+    @file.each_line do |line|
+      inside_str = assignment = false
+      line.each_char do |char|
+        if assignment and !(["\n", " ", "\t"]).include?(char)
+          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+          msg_error = " Several assignments on the same line."
+          puts msg_brackets.bold.red + msg_error.bold
+          return
+        end
+        if char == "'" or char == '"'
+          inside_str = !inside_str
+        end
+        if char == ";" and !inside_str
+          assignment = true
+        end
       end
       line_nb += 1
     end
