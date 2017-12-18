@@ -121,8 +121,7 @@ class CodingStyleChecker
   end
 
   def check_too_broad_filename
-    if /#{@file_path}/.match("*/string.c|*/str.c|*/my_string.c|*/my_str.c|*/algorithm.c|*/algo.c|
-                              */my_algo.c|*/my_algoritm.c|*/program.c|*/my_program.c|*/prog.c|*/my_prog.c")
+    if /(.*\/|^)(string.c|str.c|my_string.c|my_str.c|algorithm.c|my_algorithm.c|algo.c|my_algo.c|program.c|my_program.c|prog.c|my_prog.c)$/.match(@file_path)
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Too broad filename. You should rename this file."
       puts msg_brackets.bold.magenta + msg_error.bold
