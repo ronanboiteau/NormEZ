@@ -106,6 +106,7 @@ class CodingStyleChecker
   def check_file
     check_too_many_columns
     check_too_broad_filename
+    check_header
   end
 
   def check_too_many_columns
@@ -121,9 +122,17 @@ class CodingStyleChecker
   end
 
   def check_too_broad_filename
-    if /(.*\/|^)(string.c|str.c|my_string.c|my_str.c|algorithm.c|my_algorithm.c|algo.c|my_algo.c|program.c|my_program.c|prog.c|my_prog.c)$/.match(@file_path)
+    if @file_path =~ /(.*\/|^)(string.c|str.c|my_string.c|my_str.c|algorithm.c|my_algorithm.c|algo.c|my_algo.c|program.c|my_program.c|prog.c|my_prog.c)$/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Too broad filename. You should rename this file."
+      puts msg_brackets.bold.magenta + msg_error.bold
+    end
+  end
+
+  def check_header
+    if @file !~ /\/\*\n\*\* EPITECH PROJECT, [0-9]{4}\n\*\* .*\n\*\* File description:\n\*\* .*\n\*\/\n.*/
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Missing or corrupted header."
       puts msg_brackets.bold.magenta + msg_error.bold
     end
   end
