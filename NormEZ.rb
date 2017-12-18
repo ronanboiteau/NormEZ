@@ -89,7 +89,7 @@ class FilesRetriever
     files.each do |file|
       msg_brackets = "[" + file + "]"
       msg_error = " Forbidden file. Do not forget to remove it before your final push."
-      puts msg_brackets.bold.magenta + msg_error.bold
+      puts msg_brackets.bold.red + msg_error.bold
     end
   end
 
@@ -107,6 +107,7 @@ class CodingStyleChecker
     check_too_many_columns
     check_too_broad_filename
     check_header
+    check_function_lines
   end
 
   def check_too_many_columns
@@ -115,7 +116,7 @@ class CodingStyleChecker
       if line.length - 1 > 80
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Too many columns (" + (line.length - 1).to_s + " > 80)."
-        puts msg_brackets.bold.magenta + msg_error.bold
+        puts msg_brackets.bold.red + msg_error.bold
       end
       line_nb += 1
     end
@@ -125,7 +126,7 @@ class CodingStyleChecker
     if @file_path =~ /(.*\/|^)(string.c|str.c|my_string.c|my_str.c|algorithm.c|my_algorithm.c|algo.c|my_algo.c|program.c|my_program.c|prog.c|my_prog.c)$/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Too broad filename. You should rename this file."
-      puts msg_brackets.bold.magenta + msg_error.bold
+      puts msg_brackets.bold.red + msg_error.bold
     end
   end
 
@@ -133,7 +134,28 @@ class CodingStyleChecker
     if @file !~ /\/\*\n\*\* EPITECH PROJECT, [0-9]{4}\n\*\* .*\n\*\* File description:\n\*\* .*\n\*\/\n.*/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Missing or corrupted header."
-      puts msg_brackets.bold.magenta + msg_error.bold
+      puts msg_brackets.bold.red + msg_error.bold
+    end
+  end
+
+  def check_function_lines
+    count = 0
+    line_nb = function_start = 1
+    @file.each_line do |line|
+      if line =~ /^}.*/
+        if count > 20
+          msg_brackets = "[" + @file_path + ":" + function_start.to_s + "]"
+          msg_error = " Function contains more than 20 lines (" + count.to_s + " > 20)."
+          puts msg_brackets.bold.red + msg_error.bold
+        end
+      end
+      if line =~ /^{.*/
+        count = 0
+        function_start = line_nb
+      else
+        count += 1
+      end
+      line_nb += 1
     end
   end
 

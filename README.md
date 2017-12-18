@@ -27,11 +27,12 @@ ruby NormEZ.rb
 
 ## Features
 
-Here are the Epitech coding-style rules checked by NormEZ:
- - Lines with too many columns (> 80)
- - Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...)
- - Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...)
+Here are the Epitech coding-style violations checked by NormEZ:
+ - Lines with too many columns (> 80).
+ - Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).
+ - Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
  - Missing or corrupted header.
+ - Functions that contain more than 20 lines.
 
 ## Author
 
