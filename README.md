@@ -18,10 +18,12 @@ sudo dnf install ruby
 ```
 git clone https://github.com/ronanboiteau/NormEZ
 ```
- - Copy the `NormEZ.rb` executable 
+ - Copy the `NormEZ.rb` executable in your project repository.
+ - Run NormEZ:
 ```
-git clone https://github.com/ronanboiteau/NormEZ
+ruby NormEZ.rb
 ```
+ - NormEZ will recursively search for `.c` and `.h` files to analyze in your current directory.
 
 ## Features
 
