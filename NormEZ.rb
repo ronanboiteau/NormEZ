@@ -1,53 +1,64 @@
+class FileManager
+
+  attr_accessor :path
+
+  def initialize(path)
+    @path = path
+  end
+
+  def get_content
+    file = File.open(@path)
+    content = file.read
+    file.close
+    content
+  end
+
+end
+
 class ArgumentsManager
 
-  def initialize(args)
-    @args = args
+  def initialize
+    @files = Dir['**/*.c'] + Dir['**/*.h']
+    @nb_files = @files.size
     @index = 0
   end
 
   def get_next_file
-    if @index >= @args.length
+    if @index >= @nb_files
       return nil
     end
-    file = File.open(@args[@index])
-    content = file.read
-    file.close
+    file = FileManager.new(@files[@index])
     @index += 1
-    content
+    file
   end
 
 end
 
 class CodingStyleChecker
 
-  def initialize(file_content)
-    @file = file_content
+  def initialize(file_manager)
+    @file_path = file_manager.path
+    @file = file_manager.get_content
     check_file
   end
 
   def check_file
-    idx = 0
+    check_too_many_columns
+  end
+
+  def check_too_many_columns
+    line_nb = 1
     @file.each_line do |line|
-      if line.length > 80
-        puts "[Line " + idx.to_s + "] " + "Too many columns (> 80)"
+      if line.length - 1 > 80
+        puts "[" + @file_path + ":" + line_nb.to_s + "] Too many columns (" + (line.length - 1).to_s + " > 80)"
       end
-      idx += 1
+      line_nb += 1
     end
   end
 
 end
 
-arg_manager = ArgumentsManager.new(ARGV)
+arg_manager = ArgumentsManager.new
 while (next_file = arg_manager.get_next_file)
   CodingStyleChecker.new(next_file)
 end
-
-
-# puts ARGV.length
-# ARGV.each do |arg|
-#   puts "Argument: #{arg}"
-# end
-
-# file = File.open("test.c","r")
-# puts file.read()
-# file.close()
