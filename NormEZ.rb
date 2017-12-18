@@ -67,7 +67,7 @@ class FileManager
 
 end
 
-class ArgumentsManager
+class FilesRetriever
 
   def initialize
     @files = Dir['**/*.c'] + Dir['**/*.h']
@@ -82,6 +82,17 @@ class ArgumentsManager
     file = FileManager.new(@files[@index])
     @index += 1
     file
+  end
+
+  def find_forbidden_files
+    files = Dir['**/*{[!.c|.h|Makefile]}']
+    files.each do |file|
+      if File.file?(file)
+        msg_brackets = "[" + file + "]"
+        msg_error = " Forbidden file, do not forget to remove it before your final push!"
+        puts msg_brackets.bold.magenta + msg_error.bold
+      end
+    end
   end
 
 end
@@ -110,9 +121,22 @@ class CodingStyleChecker
     end
   end
 
+  def check_trailing_spaces
+    line_nb = 1
+    @file.each_line do |line|
+      if line.length - 1 > 80
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Too many columns (" + (line.length - 1).to_s + " > 80)"
+        puts msg_brackets.bold.magenta + msg_error.bold
+      end
+      line_nb += 1
+    end
+  end
+
 end
 
-arg_manager = ArgumentsManager.new
-while (next_file = arg_manager.get_next_file)
+files_retriever = FilesRetriever.new
+files_retriever.find_forbidden_files
+while (next_file = files_retriever.get_next_file)
   CodingStyleChecker.new(next_file)
 end

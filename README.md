@@ -27,8 +27,9 @@ ruby NormEZ.rb
 
 ## Features
 
-NormEZ check your `.c` and `.h` files for:
+Here are the Epitech coding-style rules checked by NormEZ:
  - Lines with too many columns (> 80)
+ - Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, etc.)
 
 ## Author
 
