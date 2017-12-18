@@ -70,7 +70,7 @@ end
 class FilesRetriever
 
   def initialize
-    @files = Dir['**/*.c'] + Dir['**/*.h']
+    @files = Dir['**/*{.c,.h}'].select { |f| File.file?(f) }
     @nb_files = @files.size
     @index = 0
   end
@@ -84,14 +84,12 @@ class FilesRetriever
     file
   end
 
-  def find_forbidden_files
-    files = Dir['**/*{[!.c|.h|Makefile]}']
+  def check_forbidden_files
+    files = Dir['**/*{[!.c|.h|Makefile]}'].select { |f| File.file?(f) }
     files.each do |file|
-      if File.file?(file)
-        msg_brackets = "[" + file + "]"
-        msg_error = " Forbidden file, do not forget to remove it before your final push!"
-        puts msg_brackets.bold.magenta + msg_error.bold
-      end
+      msg_brackets = "[" + file + "]"
+      msg_error = " Forbidden file. Do not forget to remove it before your final push."
+      puts msg_brackets.bold.magenta + msg_error.bold
     end
   end
 
@@ -107,6 +105,7 @@ class CodingStyleChecker
 
   def check_file
     check_too_many_columns
+    check_too_broad_filename
   end
 
   def check_too_many_columns
@@ -114,29 +113,26 @@ class CodingStyleChecker
     @file.each_line do |line|
       if line.length - 1 > 80
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Too many columns (" + (line.length - 1).to_s + " > 80)"
+        msg_error = " Too many columns (" + (line.length - 1).to_s + " > 80)."
         puts msg_brackets.bold.magenta + msg_error.bold
       end
       line_nb += 1
     end
   end
 
-  def check_trailing_spaces
-    line_nb = 1
-    @file.each_line do |line|
-      if line.length - 1 > 80
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Too many columns (" + (line.length - 1).to_s + " > 80)"
-        puts msg_brackets.bold.magenta + msg_error.bold
-      end
-      line_nb += 1
+  def check_too_broad_filename
+    if /#{@file_path}/.match("*/string.c|*/str.c|*/my_string.c|*/my_str.c|*/algorithm.c|*/algo.c|
+                              */my_algo.c|*/my_algoritm.c|*/program.c|*/my_program.c|*/prog.c|*/my_prog.c")
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Too broad filename. You should rename this file."
+      puts msg_brackets.bold.magenta + msg_error.bold
     end
   end
 
 end
 
 files_retriever = FilesRetriever.new
-files_retriever.find_forbidden_files
+files_retriever.check_forbidden_files
 while (next_file = files_retriever.get_next_file)
   CodingStyleChecker.new(next_file)
 end
