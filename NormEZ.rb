@@ -115,6 +115,7 @@ class CodingStyleChecker
     check_several_semicolons
     check_forbidden_keyword_func
     check_too_many_else_if
+    check_trailing_spaces_tabs
   end
 
   def check_too_many_columns
@@ -232,6 +233,22 @@ class CodingStyleChecker
           msg_error = " Too many \"else if\" statements."
           puts msg_brackets.bold.green + msg_error.bold
         end
+      end
+      line_nb += 1
+    end
+  end
+
+  def check_trailing_spaces_tabs
+    line_nb = 1
+    @file.each_line do |line|
+      if line =~ / $/
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Trailing space(s) at the end of the line."
+        puts msg_brackets.bold.green + msg_error.bold
+      elsif line =~ /\t$/
+          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+          msg_error = " Trailing tabulation(s) at the end of the line."
+          puts msg_brackets.bold.green + msg_error.bold
       end
       line_nb += 1
     end
