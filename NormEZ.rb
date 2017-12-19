@@ -230,7 +230,7 @@ class CodingStyleChecker
         if count > 3
           msg_brackets = "[" + @file_path + ":" + condition_start.to_s + "]"
           msg_error = " Too many \"else if\" statements."
-          puts msg_brackets.bold.red + msg_error.bold
+          puts msg_brackets.bold.green + msg_error.bold
         end
       end
       line_nb += 1
