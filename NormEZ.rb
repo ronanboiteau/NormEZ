@@ -112,7 +112,8 @@ class CodingStyleChecker
     check_too_broad_filename
     check_header
     check_function_lines
-    check_too_many_assignments
+    check_several_semicolons
+    check_forbidden_keyword_func
   end
 
   def check_too_many_columns
@@ -164,14 +165,14 @@ class CodingStyleChecker
     end
   end
 
-  def check_too_many_assignments
+  def check_several_semicolons
     line_nb = 1
     @file.each_line do |line|
       inside_str = assignment = false
       line.each_char do |char|
         if assignment and !(["\n", " ", "\t"]).include?(char)
           msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-          msg_error = " Several assignments on the same line."
+          msg_error = " Several semicolons on the same line."
           puts msg_brackets.bold.red + msg_error.bold
           return
         end
@@ -181,6 +182,33 @@ class CodingStyleChecker
         if char == ";" and !inside_str
           assignment = true
         end
+      end
+      line_nb += 1
+    end
+  end
+
+  def check_forbidden_keyword_func
+    line_nb = 1
+    @file.each_line do |line|
+      inside_str = false
+      while line[0]
+        if line[0] == "'" or line[0] == '"'
+          inside_str = !inside_str
+        end
+        if line =~ /^[^0-9a-zA-Z_](?<forbidden>printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/ and !inside_str
+          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+          msg_error = " Are you sure that this function is allowed: '".bold
+          msg_error += (Hash[$~.names.collect{|x| [x.to_sym, $~[x]]}][:forbidden]).bold.red
+          msg_error += "'?".bold
+          puts msg_brackets.bold.red + msg_error
+        elsif line =~ /^[^0-9a-zA-Z_](?<forbidden>goto)[^0-9a-zA-Z]/ and !inside_str
+          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+          msg_error = " Are you sure that this keyword is allowed: '".bold
+          msg_error += (Hash[$~.names.collect{|x| [x.to_sym, $~[x]]}][:forbidden]).bold.red
+          msg_error += "'?".bold
+          puts msg_brackets.bold.red + msg_error
+        end
+        line[0] = ''
       end
       line_nb += 1
     end
