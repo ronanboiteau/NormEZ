@@ -114,6 +114,7 @@ class CodingStyleChecker
     check_function_lines
     check_several_semicolons
     check_forbidden_keyword_func
+    check_too_many_else_if
   end
 
   def check_too_many_columns
@@ -209,6 +210,28 @@ class CodingStyleChecker
           puts msg_brackets.bold.red + msg_error
         end
         line[0] = ''
+      end
+      line_nb += 1
+    end
+  end
+
+  def check_too_many_else_if
+    line_nb = condition_start = 1
+    count = 0
+    @file.each_line do |line|
+      while ([" ", "\t"]).include?(line[0])
+        line[0] = ''
+      end
+      if line =~ /^if \(/
+        condition_start = line_nb
+        count = 1
+      elsif line =~ /^else if \(/ or line =~ /^else \(/
+        count += 1
+        if count > 3
+          msg_brackets = "[" + @file_path + ":" + condition_start.to_s + "]"
+          msg_error = " Too many \"else if\" statements."
+          puts msg_brackets.bold.red + msg_error.bold
+        end
       end
       line_nb += 1
     end

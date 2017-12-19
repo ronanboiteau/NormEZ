@@ -34,8 +34,9 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Missing or corrupted header.
  - Functions that contain more than 20 lines.
  - Several semicolons the same line.
- - Forbidden keyword (`goto`)
- - Some forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...)
+ - Forbidden keyword (`goto`).
+ - Some forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...).
+ - Too many `else if` statements.
 
 ## Author
 
