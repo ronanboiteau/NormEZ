@@ -38,6 +38,12 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - *[Not exhaustive]* Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...).
  - Too many `else if` statements.
  - Trailing space(s) and/or tabulation(s) at the end of a line.
+ - Space(s) in indentation
+
+## Coming soon
+
+Here are the Epitech coding-style violations that ***will*** be checked by NormEZ in a near future:
+ - Misplaced empty lines
 
 ## Author
 

@@ -116,6 +116,7 @@ class CodingStyleChecker
     check_forbidden_keyword_func
     check_too_many_else_if
     check_trailing_spaces_tabs
+    check_spaces_in_indentation
   end
 
   def check_too_many_columns
@@ -199,18 +200,14 @@ class CodingStyleChecker
   def check_forbidden_keyword_func
     line_nb = 1
     @file.each_line do |line|
-      inside_str = false
       while line[0]
-        if line[0] == "'" or line[0] == '"'
-          inside_str = !inside_str
-        end
-        if line =~ /^[^0-9a-zA-Z_](?<forbidden>printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/ and !inside_str
+        if line =~ /^[^0-9a-zA-Z_](?<forbidden>printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/
           msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
           msg_error = " Are you sure that this function is allowed: '".bold
           msg_error += (Hash[$~.names.collect{|x| [x.to_sym, $~[x]]}][:forbidden]).bold.red
           msg_error += "'?".bold
           puts msg_brackets.bold.red + msg_error
-        elsif line =~ /^[^0-9a-zA-Z_](?<forbidden>goto)[^0-9a-zA-Z]/ and !inside_str
+        elsif line =~ /^[^0-9a-zA-Z_](?<forbidden>goto)[^0-9a-zA-Z]/
           msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
           msg_error = " Are you sure that this keyword is allowed: '".bold
           msg_error += (Hash[$~.names.collect{|x| [x.to_sym, $~[x]]}][:forbidden]).bold.red
@@ -230,10 +227,10 @@ class CodingStyleChecker
       while ([" ", "\t"]).include?(line[0])
         line[0] = ''
       end
-      if line =~ /^if \(/
+      if line =~ /^if ?\(/
         condition_start = line_nb
         count = 1
-      elsif line =~ /^else if \(/ or line =~ /^else \(/
+      elsif line =~ /^else if ?\(/ or line =~ /^else ?\(/
         count += 1
         if count > 3
           msg_brackets = "[" + @file_path + ":" + condition_start.to_s + "]"
@@ -255,6 +252,23 @@ class CodingStyleChecker
       elsif line =~ /\t$/
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Trailing tabulation(s) at the end of the line."
+        puts msg_brackets.bold.green + msg_error.bold
+      end
+      line_nb += 1
+    end
+  end
+
+  def check_spaces_in_indentation
+    line_nb = 1
+    @file.each_line do |line|
+      indent = 0
+      while line[0,1] == "\t"
+        line[0,1] = ""
+        indent += 1
+      end
+      if line[0,1] == " "
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Wrong indentation: spaces are not allowed."
         puts msg_brackets.bold.green + msg_error.bold
       end
       line_nb += 1
