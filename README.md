@@ -33,7 +33,7 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - *[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
  - Missing or corrupted header.
  - Functions that contain more than 20 lines.
- - Several semicolons the same line.
+ - Several semicolon-separated assignments on the same line.
  - Forbidden keyword (`goto`).
  - *[Not exhaustive]* Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...).
  - Too many `else if` statements.

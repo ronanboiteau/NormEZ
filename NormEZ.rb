@@ -112,7 +112,7 @@ class CodingStyleChecker
     check_too_broad_filename
     check_header
     check_function_lines
-    check_several_semicolons
+    check_several_assignments
     check_forbidden_keyword_func
     check_too_many_else_if
     check_trailing_spaces_tabs
@@ -147,34 +147,40 @@ class CodingStyleChecker
   end
 
   def check_function_lines
-    count = 0
+    count = level = 0
     line_nb = function_start = 1
     @file.each_line do |line|
-      if line =~ /^}.*/
-        if count > 20
-          msg_brackets = "[" + @file_path + ":" + function_start.to_s + "]"
-          msg_error = " Function contains more than 20 lines (" + count.to_s + " > 20)."
-          puts msg_brackets.bold.red + msg_error.bold
+      line.each_char do |char|
+        if char == "{"
+          if level == 0
+            function_start = line_nb
+            count = -1
+          end
+          level += 1
         end
-      end
-      if line =~ /^{.*/
-        count = 0
-        function_start = line_nb
-      else
-        count += 1
+        if char == "\n"
+          count += 1
+        end
+        if char == "}" and level == 1
+          if count > 20
+            msg_brackets = "[" + @file_path + ":" + function_start.to_s + "]"
+            msg_error = " Function contains more than 20 lines (" + count.to_s + " > 20)."
+            puts msg_brackets.bold.red + msg_error.bold
+          end
+        end
       end
       line_nb += 1
     end
   end
 
-  def check_several_semicolons
+  def check_several_assignments
     line_nb = 1
     @file.each_line do |line|
       inside_str = assignment = false
       line.each_char do |char|
         if assignment and !(["\n", " ", "\t"]).include?(char)
           msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-          msg_error = " Several semicolons on the same line."
+          msg_error = " Several assignments on the same line."
           puts msg_brackets.bold.red + msg_error.bold
           return
         end
@@ -246,9 +252,9 @@ class CodingStyleChecker
         msg_error = " Trailing space(s) at the end of the line."
         puts msg_brackets.bold.green + msg_error.bold
       elsif line =~ /\t$/
-          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-          msg_error = " Trailing tabulation(s) at the end of the line."
-          puts msg_brackets.bold.green + msg_error.bold
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Trailing tabulation(s) at the end of the line."
+        puts msg_brackets.bold.green + msg_error.bold
       end
       line_nb += 1
     end
