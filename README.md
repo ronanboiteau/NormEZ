@@ -30,12 +30,12 @@ ruby NormEZ.rb
 Here are the Epitech coding-style violations checked by NormEZ:
  - Lines with too many columns (> 80).
  - Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).
- - **[Not exhaustive]** Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
+ - *[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
  - Missing or corrupted header.
  - Functions that contain more than 20 lines.
  - Several semicolons the same line.
  - Forbidden keyword (`goto`).
- - **[Not exhaustive]** Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...).
+ - *[Not exhaustive]* Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...).
  - Too many `else if` statements.
  - Trailing space(s) and/or tabulation(s) at the end of a line.
 
