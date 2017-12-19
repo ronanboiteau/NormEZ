@@ -161,8 +161,9 @@ class CodingStyleChecker
         if char == "\n"
           count += 1
         end
-        if char == "}" and level == 1
-          if count > 20
+        if char == "}"
+          level -= 1
+          if count > 20 && level == 0
             msg_brackets = "[" + @file_path + ":" + function_start.to_s + "]"
             msg_error = " Function contains more than 20 lines (" + count.to_s + " > 20)."
             puts msg_brackets.bold.red + msg_error.bold
