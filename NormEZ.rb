@@ -117,6 +117,7 @@ class CodingStyleChecker
     check_too_many_else_if
     check_trailing_spaces_tabs
     check_spaces_in_indentation
+    check_functions_per_file
   end
 
   def check_too_many_columns
@@ -262,16 +263,30 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       indent = 0
-      while line[0,1] == "\t"
-        line[0,1] = ""
+      while line[0] == "\t"
+        line[0] = ""
         indent += 1
       end
-      if line[0,1] == " "
+      if line[0] == " "
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Wrong indentation: spaces are not allowed."
         puts msg_brackets.bold.green + msg_error.bold
       end
       line_nb += 1
+    end
+  end
+
+  def check_functions_per_file
+    functions = 0
+    @file.each_line do |line|
+      if line =~ /^{/
+        functions += 1
+      end
+    end
+    if functions > 5
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " More than 5 functions in the same file (" + functions.to_s + " > 5)."
+      puts msg_brackets.bold.red + msg_error.bold
     end
   end
 
