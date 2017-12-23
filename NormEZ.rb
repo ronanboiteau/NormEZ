@@ -119,6 +119,7 @@ class CodingStyleChecker
     check_spaces_in_indentation
     check_functions_per_file
     check_empty_parenthesis
+    check_too_many_parameters
   end
 
   def check_too_many_columns
@@ -298,19 +299,27 @@ class CodingStyleChecker
       if missing_bracket
         if line =~ /^{$/
           msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-          msg_error = " EMPTY ASKIP"
+          msg_error = " This function takes no parameter, it should take 'void' as argument."
           puts msg_brackets.bold.red + msg_error.bold
         elsif line !~ /^[\t ]*$/
           missing_bracket = false
         end
       elsif line =~ /\(\)[\t ]*{$/
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " EMPTY ASKIP"
+        msg_error = " This function takes no parameter, it should take 'void' as argument."
         puts msg_brackets.bold.red + msg_error.bold
       elsif line =~ /\(\)[ \t]*$/
         missing_bracket = true
       end
       line_nb += 1
+    end
+  end
+
+  def check_too_many_parameters
+    @file.scan(/\(([^(),]*,){4,}[^()]*\)[ \t\n]+{/).each do |match|
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Function shouldn't take more than 4 arguments."
+      puts msg_brackets.bold.red + msg_error.bold
     end
   end
 
