@@ -40,6 +40,7 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Trailing space(s) and/or tabulation(s) at the end of a line.
  - Space(s) in indentation.
  - Too many functions in file (> 5).
+ - Functions with no parameters that doesn't take void as argument in the function declaration.
 
 ## Author
 

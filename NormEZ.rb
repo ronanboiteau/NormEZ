@@ -118,6 +118,7 @@ class CodingStyleChecker
     check_trailing_spaces_tabs
     check_spaces_in_indentation
     check_functions_per_file
+    check_empty_parenthesis
   end
 
   def check_too_many_columns
@@ -287,6 +288,29 @@ class CodingStyleChecker
       msg_brackets = "[" + @file_path + "]"
       msg_error = " More than 5 functions in the same file (" + functions.to_s + " > 5)."
       puts msg_brackets.bold.red + msg_error.bold
+    end
+  end
+
+  def check_empty_parenthesis
+    line_nb = 1
+    missing_bracket = false
+    @file.each_line do |line|
+      if missing_bracket
+        if line =~ /^{$/
+          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+          msg_error = " EMPTY ASKIP"
+          puts msg_brackets.bold.red + msg_error.bold
+        elsif line !~ /^[\t ]*$/
+          missing_bracket = false
+        end
+      elsif line =~ /\(\)[\t ]*{$/
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " EMPTY ASKIP"
+        puts msg_brackets.bold.red + msg_error.bold
+      elsif line =~ /\(\)[ \t]*$/
+        missing_bracket = true
+      end
+      line_nb += 1
     end
   end
 
