@@ -51,8 +51,32 @@ Here are the Epitech coding-style violations checked by NormEZ:
 ## To-do
 
 Here are the Epitech coding-style violations ***NOT YET*** checked by NormEZ:
- - Wrong indentation level.
+ - Wrong indentation level in `.c` and `.h` files.
+ - Wrong indentation level in pre-processor directives.
  - Folder names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
+ - Function names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
+ - Missing or corrupted header in `Makefile`.
+ - Functions must be separated by *one and only one* empty line in `.c` files.
+ - Misplaced comments (inside a function).
+ - Condition and assignment on the same line.
+ - Missing  space after comma.
+ - Extra space after unary operators.
+ - Extra space between function name and opening parenthesis.
+ - Missing space around binary or ternary operator.
+ - Misplaced curly brackets.
+ - Multiple variables declared on the same line.
+ - Variable not declared at the beginning of function.
+ - Missing empty line after variable declarations.
+ - Extra empty lines.
+ - Typedef not ending with `_t`
+ - Identifiers that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
+ - Macros, global constants or enums that don't respect the SNAKE_CASE convention (uppercase [snake_case](https://en.wikipedia.org/wiki/Snake_case)).
+ - Nested conditonal branchings (depth > 2).
+ - Function prototypes, typedefs, global variables, macros or static inline functions in `.c` source files.
+ - Header files not protected against double inclusion
+ - Macros containing multiple statements.
+ - Macros used as constants.
+ 
 
 ## Bugs
 

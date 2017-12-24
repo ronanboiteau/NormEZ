@@ -382,7 +382,7 @@ class CodingStyleChecker
   def check_misplaced_pointer_symbol
     line_nb = 1
     @file.each_line do |line|
-      line.scan(/(t_[^ ]+|int|signed|unsigned|char|long|short|float|double|void|const|struct [^ ]+)\*/) do |match|
+      line.scan(/([^(\t ]+_t|int|signed|unsigned|char|long|short|float|double|void|const|struct [^ ]+)\*/) do |match|
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Misplaced pointer symbol after '" + match[0] + "'."
         puts msg_brackets.bold.green + msg_error.bold
