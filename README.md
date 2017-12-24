@@ -46,10 +46,23 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Functions with too many arguments (> 4).
  - Missing space after keyword.
  - Misplaced pointer symbol(s).
+ - Filenames that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
 
-## Report a bug
+## To-do
 
-If you found a bug, feel free to [create a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
+Here are the Epitech coding-style violations ***NOT YET*** checked by NormEZ:
+ - Wrong indentation level.
+ - Folder names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
+
+## Bugs
+
+### Known bugs
+
+ - `for` statements been flagged as multiple assignments.
+
+### Report a bug
+
+If you found a bug that isn't listed above in as a known bug, feel free to [create a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
 
 ## Author
 

@@ -123,21 +123,33 @@ class CodingStyleChecker
   end
 
   def check_file
-    check_too_many_columns
-    check_too_broad_filename
-    check_header
-    check_several_assignments
-    check_forbidden_keyword_func
-    check_too_many_else_if
     check_trailing_spaces_tabs
     check_spaces_in_indentation
-    check_empty_parenthesis
-    check_too_many_parameters
-    check_space_after_keywords
-    check_misplaced_pointer_symbol
-    if @type == FileType::SOURCE
-      check_functions_per_file
-      check_function_lines
+    if @type != FileType::MAKEFILE
+      check_filename
+      check_too_many_columns
+      check_too_broad_filename
+      check_header
+      check_several_assignments
+      check_forbidden_keyword_func
+      check_too_many_else_if
+      check_empty_parenthesis
+      check_too_many_parameters
+      check_space_after_keywords
+      check_misplaced_pointer_symbol
+      if @type == FileType::SOURCE
+        check_functions_per_file
+        check_function_lines
+      end
+    end
+  end
+
+  def check_filename
+    filename = File.basename(@file_path)
+    if filename !~ /^[a-z0-9_]+[.][ch]$/
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Filenames should respect the snake_case naming convention."
+      puts msg_brackets.bold.red + msg_error.bold
     end
   end
 
@@ -370,7 +382,7 @@ class CodingStyleChecker
   def check_misplaced_pointer_symbol
     line_nb = 1
     @file.each_line do |line|
-      line.scan(/(t_[^ ]+|int|signed|unsigned|char|long|short|float|double|void|struct [^ ]+)\*/) do |match|
+      line.scan(/(t_[^ ]+|int|signed|unsigned|char|long|short|float|double|void|const|struct [^ ]+)\*/) do |match|
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Misplaced pointer symbol after '" + match[0] + "'."
         puts msg_brackets.bold.green + msg_error.bold
