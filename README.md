@@ -43,6 +43,10 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Functions with no parameters that don't take void as argument in their declaration.
  - Functions with too many arguments (> 4).
 
+## Report a bug
+
+If you found a bug, feel free to [open a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
+
 ## Author
 
 * **Ronan Boiteau** ([GitHub](https://github.com/ronanboiteau) / [LinkedIn](https://www.linkedin.com/in/ronanboiteau/))
