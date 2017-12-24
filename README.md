@@ -45,7 +45,7 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Functions with no parameters that don't take void as argument in their declaration.
  - Functions with too many arguments (> 4).
  - Missing space after keyword.
- - Misplaced pointer symbol.
+ - Misplaced pointer symbol(s).
 
 ## Report a bug
 

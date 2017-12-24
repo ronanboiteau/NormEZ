@@ -54,9 +54,16 @@ class String
 
 end
 
+module FileType
+  MAKEFILE = 0
+  HEADER = 1
+  SOURCE = 2
+end
+
 class FileManager
 
   attr_accessor :path
+  attr_accessor :type
 
   def initialize(path)
     @path = path
@@ -64,6 +71,13 @@ class FileManager
 
   def get_content
     file = File.open(@path)
+    if file =~ /Makefile$/
+      @type = FileType::MAKEFILE
+    elsif file =~ /[.]h$/
+      @type = FileType::HEADER
+    elsif file =~ /[.]c$/
+      @type = FileType::SOURCE
+    end
     content = file.read
     file.close
     content
@@ -104,6 +118,7 @@ class CodingStyleChecker
   def initialize(file_manager)
     @file_path = file_manager.path
     @file = file_manager.get_content
+    @type = file_manager.type
     check_file
   end
 
@@ -111,17 +126,19 @@ class CodingStyleChecker
     check_too_many_columns
     check_too_broad_filename
     check_header
-    check_function_lines
     check_several_assignments
     check_forbidden_keyword_func
     check_too_many_else_if
     check_trailing_spaces_tabs
     check_spaces_in_indentation
-    check_functions_per_file
     check_empty_parenthesis
     check_too_many_parameters
     check_space_after_keywords
     check_misplaced_pointer_symbol
+    if @type == FileType::SOURCE
+      check_functions_per_file
+      check_function_lines
+    end
   end
 
   def check_too_many_columns
