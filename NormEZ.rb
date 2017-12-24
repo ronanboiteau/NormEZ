@@ -88,7 +88,7 @@ end
 class FilesRetriever
 
   def initialize
-    @files = Dir['**/*{.c,.h}'].select { |f| File.file?(f) }
+    @files = Dir['**/*[{.c|.h|Makefile}]'].select { |f| File.file?(f) }
     @nb_files = @files.size
     @index = 0
   end
@@ -144,6 +144,8 @@ class CodingStyleChecker
       if @type == FileType::HEADER
         check_macro_used_as_constant
       end
+    elsif @type == FileType::MAKEFILE
+      check_header_makefile
     end
   end
 
@@ -403,6 +405,14 @@ class CodingStyleChecker
         puts msg_brackets.bold.green + msg_error.bold
       end
       line_nb += 1
+    end
+  end
+
+  def check_header_makefile
+    if @file !~ /##\n## EPITECH PROJECT, [0-9]{4}\n## .*\n## File description:\n## .*\n##\n.*/
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Missing or corrupted header."
+      puts msg_brackets.bold.red + msg_error.bold
     end
   end
 

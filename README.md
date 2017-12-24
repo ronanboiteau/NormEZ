@@ -34,6 +34,7 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).
  - *[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
  - Missing or corrupted header.
+ - Missing or corrupted header in `Makefile`.
  - Functions that contain more than 20 lines.
  - Several semicolon-separated assignments on the same line.
  - Forbidden keyword (`goto`).
@@ -57,7 +58,6 @@ Here are the Epitech coding-style violations ***NOT YET*** checked by NormEZ:
  - Wrong indentation level in pre-processor directives.
  - Folder names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
  - Function names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
- - Missing or corrupted header in `Makefile`.
  - Functions must be separated by *one and only one* empty line in `.c` files.
  - Misplaced comments (inside a function).
  - Condition and assignment on the same line.
@@ -76,7 +76,6 @@ Here are the Epitech coding-style violations ***NOT YET*** checked by NormEZ:
  - Nested conditonal branchings (depth > 2).
  - Function prototypes, typedefs, global variables, macros or static inline functions in `.c` source files.
  - Header files not protected against double inclusion
- 
 
 ## Bugs
 
