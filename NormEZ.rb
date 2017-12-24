@@ -67,17 +67,17 @@ class FileManager
 
   def initialize(path)
     @path = path
+    if @path =~ /Makefile$/
+      @type = FileType::MAKEFILE
+    elsif @path =~ /[.]h$/
+      @type = FileType::HEADER
+    elsif @path =~ /[.]c$/
+      @type = FileType::SOURCE
+    end
   end
 
   def get_content
     file = File.open(@path)
-    if file =~ /Makefile$/
-      @type = FileType::MAKEFILE
-    elsif file =~ /[.]h$/
-      @type = FileType::HEADER
-    elsif file =~ /[.]c$/
-      @type = FileType::SOURCE
-    end
     content = file.read
     file.close
     content
@@ -140,6 +140,9 @@ class CodingStyleChecker
       if @type == FileType::SOURCE
         check_functions_per_file
         check_function_lines
+      end
+      if @type == FileType::HEADER
+        check_macro_used_as_constant
       end
     end
   end
@@ -385,6 +388,18 @@ class CodingStyleChecker
       line.scan(/([^(\t ]+_t|int|signed|unsigned|char|long|short|float|double|void|const|struct [^ ]+)\*/) do |match|
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Misplaced pointer symbol after '" + match[0] + "'."
+        puts msg_brackets.bold.green + msg_error.bold
+      end
+      line_nb += 1
+    end
+  end
+
+  def check_macro_used_as_constant
+    line_nb = 1
+    @file.each_line do |line|
+      if line =~ (/#define [^ ]+ [0-9]+([.][0-9]+)?/)
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Macros should not be used for constants."
         puts msg_brackets.bold.green + msg_error.bold
       end
       line_nb += 1
