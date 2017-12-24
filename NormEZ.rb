@@ -120,6 +120,7 @@ class CodingStyleChecker
     check_functions_per_file
     check_empty_parenthesis
     check_too_many_parameters
+    check_space_after_keywords
   end
 
   def check_too_many_columns
@@ -320,6 +321,22 @@ class CodingStyleChecker
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Function shouldn't take more than 4 arguments."
       puts msg_brackets.bold.red + msg_error.bold
+    end
+  end
+
+  def check_space_after_keywords
+    line_nb = 1
+    @file.each_line do |line|
+      if line =~ /(return|if|else if|else|while|for)\(/
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Missing space after keyword '" + $1 + "'."
+        puts msg_brackets.bold.green + msg_error.bold
+      elsif line =~ /(break|continue|return);/
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Missing space after keyword '" + $1 + "'."
+        puts msg_brackets.bold.green + msg_error.bold
+      end
+      line_nb += 1
     end
   end
 

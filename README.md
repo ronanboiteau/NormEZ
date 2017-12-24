@@ -1,6 +1,8 @@
 # NormEZ
 
-Coding-style checker for Epitech students.
+Coding-style checker for Epitech students. This program analyzes your C source files for Epitech coding-style violations.
+
+*FR:* Moulinette de norme pour les étudiants d'Epitech. Cette norminette cherche des erreurs de norme Epitech dans vos fichers de code source C.
 
 ## Requirements
 
@@ -42,10 +44,11 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Too many functions in file (> 5).
  - Functions with no parameters that don't take void as argument in their declaration.
  - Functions with too many arguments (> 4).
+ - Missing space after keyword.
 
 ## Report a bug
 
-If you found a bug, feel free to [open a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
+If you found a bug, feel free to [create a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
 
 ## Author
 
