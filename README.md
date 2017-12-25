@@ -79,13 +79,13 @@ Here are the Epitech coding-style violations ***NOT YET*** checked by NormEZ:
 
 ## Bugs
 
-### Known bugs
+### Known issues
 
- - `for` statements been flagged as multiple assignments.
+ - NormEZ doesn't make the difference between strings/comments & code. Examples: a commented forbidden function will be flagged, as well as a commented `;` (multiple assignments on the same line), etc.
 
 ### Report a bug
 
-If you found a bug that isn't listed above in as a known bug, feel free to [create a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
+If you found a bug that isn't listed above in as a known issue, feel free to [create a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
 
 ## Author
 

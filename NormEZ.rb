@@ -213,20 +213,20 @@ class CodingStyleChecker
   def check_several_assignments
     line_nb = 1
     @file.each_line do |line|
-      inside_str = assignment = false
+      if line =~ /^[ \t]*for ?\(/
+        line_nb += 1
+        next
+      end
+      assignments = 0
       line.each_char do |char|
-        if assignment and !(["\n", " ", "\t"]).include?(char)
-          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-          msg_error = " Several assignments on the same line."
-          puts msg_brackets.bold.red + msg_error.bold
-          return
+        if char == ";"
+          assignments += 1
         end
-        if char == "'" or char == '"'
-          inside_str = !inside_str
-        end
-        if char == ";" and !inside_str
-          assignment = true
-        end
+      end
+      if assignments > 1
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Several assignments on the same line."
+        puts msg_brackets.bold.red + msg_error.bold
       end
       line_nb += 1
     end
