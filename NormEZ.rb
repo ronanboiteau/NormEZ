@@ -137,10 +137,11 @@ class CodingStyleChecker
       check_too_many_parameters
       check_space_after_keywords
       check_misplaced_pointer_symbol
+      check_comma_missing_space
+      check_misplaced_comments
       if @type == FileType::SOURCE
         check_functions_per_file
         check_function_lines
-        check_misplaced_comments
       end
       if @type == FileType::HEADER
         check_macro_used_as_constant
@@ -429,6 +430,19 @@ class CodingStyleChecker
       line_nb += 1
     end
   end
+
+  def check_comma_missing_space
+    line_nb = 1
+    @file.each_line do |line|
+      line.scan(/,[^ ]/) do |match|
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Missing space after comma."
+        puts msg_brackets.bold.green + msg_error.bold
+      end
+      line_nb += 1
+    end
+  end
+
 
 end
 
