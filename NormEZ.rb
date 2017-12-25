@@ -140,6 +140,7 @@ class CodingStyleChecker
       if @type == FileType::SOURCE
         check_functions_per_file
         check_function_lines
+        check_misplaced_comments
       end
       if @type == FileType::HEADER
         check_macro_used_as_constant
@@ -190,26 +191,21 @@ class CodingStyleChecker
     count = level = 0
     line_nb = function_start = 1
     @file.each_line do |line|
-      line.each_char do |char|
-        if char == "{"
-          if level == 0
-            function_start = line_nb
-            count = -1
-          end
-          level += 1
+      if line =~ /{[ \t]*$/
+        if level == 0
+          function_start = line_nb
+          count = -1
         end
-        if char == "\n"
-          count += 1
-        end
-        if char == "}"
-          level -= 1
-          if count > 20 && level == 0
-            msg_brackets = "[" + @file_path + ":" + function_start.to_s + "]"
-            msg_error = " Function contains more than 20 lines (" + count.to_s + " > 20)."
-            puts msg_brackets.bold.red + msg_error.bold
-          end
+        level += 1
+      elsif line =~ /^[ \t]*}[ \t]*$/
+        level -= 1
+        if level == 0 and count > 20
+          msg_brackets = "[" + @file_path + ":" + function_start.to_s + "]"
+          msg_error = " Function contains more than 20 lines (" + count.to_s + " > 20)."
+          puts msg_brackets.bold.red + msg_error.bold
         end
       end
+      count += 1
       line_nb += 1
     end
   end
@@ -413,6 +409,24 @@ class CodingStyleChecker
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Missing or corrupted header."
       puts msg_brackets.bold.red + msg_error.bold
+    end
+  end
+
+  def check_misplaced_comments
+    level = 0
+    line_nb = 1
+    @file.each_line do |line|
+      if line =~ /{[ \t]*$/
+        level += 1
+      elsif line =~ /^[ \t]*}[ \t]*$/
+        level -= 1
+      end
+      if level != 0 and (line =~ /\/\*/ or line =~ /\/\//)
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Misplaced comment."
+        puts msg_brackets.bold.green + msg_error.bold
+      end
+      line_nb += 1
     end
   end
 
