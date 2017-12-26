@@ -139,6 +139,7 @@ class CodingStyleChecker
       check_misplaced_pointer_symbol
       check_comma_missing_space
       check_misplaced_comments
+      check_operators_spaces
       if @type == FileType::SOURCE
         check_functions_per_file
         check_function_lines
@@ -434,7 +435,7 @@ class CodingStyleChecker
   def check_comma_missing_space
     line_nb = 1
     @file.each_line do |line|
-      line.scan(/,[^ ]/) do |match|
+      line.scan(/,[^ ]/) do
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Missing space after comma."
         puts msg_brackets.bold.green + msg_error.bold
@@ -443,6 +444,77 @@ class CodingStyleChecker
     end
   end
 
+  def put_error_sign(sign, line_nb)
+    msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+    msg_error = " Misplaced space(s) around '" + sign + "' sign."
+    puts msg_brackets.bold.green + msg_error.bold
+  end
+
+  def check_operators_spaces
+    line_nb = 1
+    @file.each_line do |line|
+      # A space on both ends
+      line.scan(/([^&|=^><+\-*%\/! ]=[^=]|[^&|=^><+\-*%\/!]=[^= ])/) do
+        put_error_sign("=", line_nb)
+      end
+      line.scan(/([^ ]==|==[^ ])/) do
+        put_error_sign("==", line_nb)
+      end
+      line.scan(/([^ ]!=|!=[^ ])/) do
+        put_error_sign("!=", line_nb)
+      end
+      line.scan(/([^ ]<=|<=[^ ])/) do
+        put_error_sign("<=", line_nb)
+      end
+      line.scan(/([^ ]>=|>=[^ ])/) do
+        put_error_sign(">=", line_nb)
+      end
+      line.scan(/([^ ]&&|&&[^ ])/) do
+        put_error_sign("&&", line_nb)
+      end
+      line.scan(/([^ ]\|\||\|\|[^ ])/) do
+        put_error_sign("||", line_nb)
+      end
+      line.scan(/([^ ]\+=|\+=[^ ])/) do
+        put_error_sign("+=", line_nb)
+      end
+      line.scan(/([^ ]-=|-=[^ ])/) do
+        put_error_sign("-=", line_nb)
+      end
+      line.scan(/([^ ]\*=|\*=[^ ])/) do
+        put_error_sign("*=", line_nb)
+      end
+      line.scan(/([^ ]\/=|\/=[^ ])/) do
+        put_error_sign("/=", line_nb)
+      end
+      line.scan(/([^ ]%=|%=[^ ])/) do
+        put_error_sign("%=", line_nb)
+      end
+      line.scan(/([^ ]&=|&=[^ ])/) do
+        put_error_sign("&=", line_nb)
+      end
+      line.scan(/([^ ]\^=|\^=[^ ])/) do
+        put_error_sign("^=", line_nb)
+      end
+      line.scan(/([^ ]\|=|\|=[^ ])/) do
+        put_error_sign("|=", line_nb)
+      end
+      line.scan(/([^ ]\||\|[^ =])/) do
+        put_error_sign("|", line_nb)
+      end
+      line.scan(/([^ ]\^|\^[^ =])/) do
+        put_error_sign("^", line_nb)
+      end
+      # No space after
+      line.scan(/([^!]! )/) do
+        put_error_sign("!", line_nb)
+      end
+      line.scan(/([^a-zA-Z0-9]sizeof )/) do
+        put_error_sign("sizeof", line_nb)
+      end
+      line_nb += 1
+    end
+  end
 
 end
 

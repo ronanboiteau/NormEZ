@@ -52,6 +52,8 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Macros containing multiple assignments.
  - Misplaced comments.
  - Missing  space after comma.
+ - Missing space around binary or ternary operator (`=`, `==`, `!=`, `<=`, `>=`, `&&`, `||`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `|`, `^`).
+ - Extra space after unary operators (`!`, `sizeof`).
 
 ## To-do
 
@@ -62,9 +64,7 @@ Here are the Epitech coding-style violations ***NOT YET*** checked by NormEZ:
  - Function names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
  - Functions must be separated by *one and only one* empty line in `.c` files.
  - Condition and assignment on the same line.
- - Extra space after unary operators.
  - Extra space between function name and opening parenthesis.
- - Missing space around binary or ternary operator.
  - Misplaced curly brackets.
  - Multiple variables declared on the same line.
  - Variable not declared at the beginning of function.
