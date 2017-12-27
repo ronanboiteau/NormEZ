@@ -52,7 +52,7 @@ Here are the Epitech coding-style violations checked by NormEZ:
  - Macros containing multiple assignments.
  - Misplaced comments.
  - Missing  space after comma.
- - Missing space around binary or ternary operator (`=`, `==`, `!=`, `<=`, `>=`, `&&`, `||`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `|`, `^`).
+ - Missing space around binary or ternary operator (`=`, `==`, `!=`, `<=`, `>=`, `&&`, `||`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `|`, `^`, `>>`, `<<`, `>>=`, `<<=`).
  - Extra space after unary operators (`!`, `sizeof`, `++`, `--`).
 
 ## To-do

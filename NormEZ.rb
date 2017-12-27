@@ -463,10 +463,10 @@ class CodingStyleChecker
       line.scan(/([^ ]!=|!=[^ ])/) do
         put_error_sign("!=", line_nb)
       end
-      line.scan(/([^ ]<=|<=[^ ])/) do
+      line.scan(/([^ <]<=|[^<]<=[^ ])/) do
         put_error_sign("<=", line_nb)
       end
-      line.scan(/([^ ]>=|>=[^ ])/) do
+      line.scan(/([^ >]>=|[^>]>=[^ ])/) do
         put_error_sign(">=", line_nb)
       end
       line.scan(/([^ ]&&|&&[^ ])/) do
@@ -504,6 +504,18 @@ class CodingStyleChecker
       end
       line.scan(/([^ ]\^|\^[^ =])/) do
         put_error_sign("^", line_nb)
+      end
+      line.scan(/([^ ]>>[^=]|>>[^ =])/) do
+        put_error_sign(">>", line_nb)
+      end
+      line.scan(/([^ ]<<[^=]|<<[^ =])/) do
+        put_error_sign("<<", line_nb)
+      end
+      line.scan(/([^ ]>>=|>>=[^ ])/) do
+        put_error_sign(">>=", line_nb)
+      end
+      line.scan(/([^ ]<<=|<<=[^ ])/) do
+        put_error_sign("<<=", line_nb)
       end
       # No space after
       line.scan(/([^!]! )/) do
