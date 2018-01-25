@@ -87,6 +87,10 @@ Here are the Epitech coding-style violations ***NOT YET*** checked by NormEZ:
 
 If you found a bug that isn't listed above in as a known issue, feel free to [create a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
 
+## Enjoying NormEZ?
+
+Don't forget to leave a [star](https://github.com/ronanboiteau/NormEZ/stargazers) if you like this repository!
+
 ## Author
 
 * **Ronan Boiteau** ([GitHub](https://github.com/ronanboiteau) / [LinkedIn](https://www.linkedin.com/in/ronanboiteau/))
