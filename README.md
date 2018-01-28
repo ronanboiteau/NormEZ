@@ -4,6 +4,8 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 
 *FR:* Moulinette de norme pour les étudiants d'Epitech. Cette norminette cherche des erreurs de norme Epitech dans vos fichers de code source C.
 
+<img alt="Epitech logo" src="/artwork/epitech-logo.png"/>
+
 ## Requirements
 
  - [Ruby](https://www.ruby-lang.org/en/)
