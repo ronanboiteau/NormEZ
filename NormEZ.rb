@@ -55,9 +55,10 @@ class String
 end
 
 module FileType
-  MAKEFILE = 0
-  HEADER = 1
-  SOURCE = 2
+  UNKNOWN = 0
+  MAKEFILE = 1
+  HEADER = 2
+  SOURCE = 3
 end
 
 class FileManager
@@ -73,6 +74,8 @@ class FileManager
       @type = FileType::HEADER
     elsif @path =~ /[.]c$/
       @type = FileType::SOURCE
+    else
+      @type = FileType::UNKNOWN
     end
   end
 
@@ -88,7 +91,7 @@ end
 class FilesRetriever
 
   def initialize
-    @files = Dir['**/*[{.c|.h|Makefile}]'].select { |f| File.file?(f) }
+    @files = Dir['**/*'].select { |f| File.file?(f) }
     @nb_files = @files.size
     @index = 0
   end
@@ -100,15 +103,6 @@ class FilesRetriever
     file = FileManager.new(@files[@index])
     @index += 1
     file
-  end
-
-  def check_forbidden_files
-    files = Dir['**/*{[!.c|.h|Makefile]}'].select { |f| File.file?(f) }
-    files.each do |file|
-      msg_brackets = "[" + file + "]"
-      msg_error = " Forbidden file. Do not forget to remove it before your final push."
-      puts msg_brackets.bold.red + msg_error.bold
-    end
   end
 
 end
@@ -123,6 +117,12 @@ class CodingStyleChecker
   end
 
   def check_file
+    if @type == FileType::UNKNOWN
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Forbidden file. Do not forget to remove it before your final push."
+      puts msg_brackets.bold.red + msg_error.bold
+      return
+    end
     check_trailing_spaces_tabs
     check_spaces_in_indentation
     if @type != FileType::MAKEFILE
@@ -537,7 +537,6 @@ class CodingStyleChecker
 end
 
 files_retriever = FilesRetriever.new
-files_retriever.check_forbidden_files
 while (next_file = files_retriever.get_next_file)
   CodingStyleChecker.new(next_file)
 end
