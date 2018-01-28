@@ -140,6 +140,7 @@ class CodingStyleChecker
       check_comma_missing_space
       check_misplaced_comments
       check_operators_spaces
+      check_condition_assignment
       if @type == FileType::SOURCE
         check_functions_per_file
         check_function_lines
@@ -529,6 +530,18 @@ class CodingStyleChecker
       end
         line.scan(/([^a-zA-Z]--[^a-zA-Z])/) do
         put_error_sign("--", line_nb)
+      end
+      line_nb += 1
+    end
+  end
+
+  def check_condition_assignment
+    line_nb = 1
+    @file.each_line do |line|
+      line.scan(/if.*=.*==.*/) do
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Condition and assignment on the same line."
+        puts msg_brackets.bold.green + msg_error.bold
       end
       line_nb += 1
     end
