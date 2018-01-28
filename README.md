@@ -1,8 +1,8 @@
 # NormEZ
 
-Coding-style checker for Epitech students. This program analyzes your C source files for Epitech coding-style violations.
+Coding-style checker for Epitech students. This program analyzes your C source files for [Epitech coding-style] violations.
 
-*FR:* Moulinette de norme pour les étudiants d'Epitech. Cette norminette cherche des erreurs de norme Epitech dans vos fichers de code source C.
+*FR:* Moulinette de norme pour les étudiants d'Epitech. Cette norminette cherche des erreurs de [norme Epitech][Epitech coding-style] dans vos fichers de code source C.
 
 <img alt="Epitech logo" src="/artwork/epitech-logo.png" width="304" height="144"/>
 
@@ -31,7 +31,7 @@ ruby NormEZ.rb
 
 ## Features
 
-Here are the Epitech coding-style violations checked by NormEZ:
+Here are the [Epitech coding-style] violations checked by NormEZ:
  - Lines with too many columns (> 80).
  - Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).
  - *[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
@@ -59,7 +59,7 @@ Here are the Epitech coding-style violations checked by NormEZ:
 
 ## To-do
 
-Here are the Epitech coding-style violations ***NOT YET*** checked by NormEZ:
+Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ:
  - Wrong indentation level in `.c` and `.h` files.
  - Wrong indentation level in pre-processor directives.
  - Folder names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
@@ -96,3 +96,6 @@ Don't forget to leave a [star](https://github.com/ronanboiteau/NormEZ/stargazers
 ## Author
 
 * **Ronan Boiteau** ([GitHub](https://github.com/ronanboiteau) / [LinkedIn](https://www.linkedin.com/in/ronanboiteau/))
+
+<!-- Links -->
+[Epitech coding-style]: /epitech_c_coding_style.pdf
