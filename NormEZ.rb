@@ -139,7 +139,7 @@ class CodingStyleChecker
     if @type == FileType::UNKNOWN
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Forbidden file. Do not forget to remove it before your final push."
-      puts msg_brackets.bold.red + msg_error.bold
+      puts(msg_brackets.bold.red + msg_error.bold)
       return
     end
     if @type == FileType::DIRECTORY
@@ -181,7 +181,7 @@ class CodingStyleChecker
     if filename !~ /^[a-z0-9]+([a-z0-9_]+[a-z0-9]+)*$/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Directory names should respect the snake_case naming convention."
-      puts msg_brackets.bold.red + msg_error.bold
+      puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
 
@@ -190,7 +190,7 @@ class CodingStyleChecker
     if filename !~ /^[a-z0-9]+([a-z0-9_]+[a-z0-9]+)*[.][ch]$/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Filenames should respect the snake_case naming convention."
-      puts msg_brackets.bold.red + msg_error.bold
+      puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
 
@@ -200,7 +200,7 @@ class CodingStyleChecker
       if line.length - 1 > 80
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Too many columns (" + (line.length - 1).to_s + " > 80)."
-        puts msg_brackets.bold.red + msg_error.bold
+        puts(msg_brackets.bold.red + msg_error.bold)
       end
       line_nb += 1
     end
@@ -210,7 +210,7 @@ class CodingStyleChecker
     if @file_path =~ /(.*\/|^)(string.c|str.c|my_string.c|my_str.c|algorithm.c|my_algorithm.c|algo.c|my_algo.c|program.c|my_program.c|prog.c|my_prog.c)$/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Too broad filename. You should rename this file."
-      puts msg_brackets.bold.red + msg_error.bold
+      puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
 
@@ -218,7 +218,7 @@ class CodingStyleChecker
     if @file !~ /\/\*\n\*\* EPITECH PROJECT, [0-9]{4}\n\*\* .*\n\*\* File description:\n\*\* .*\n\*\/\n.*/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Missing or corrupted header."
-      puts msg_brackets.bold.red + msg_error.bold
+      puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
 
@@ -237,7 +237,7 @@ class CodingStyleChecker
         if level == 0 and count > 20
           msg_brackets = "[" + @file_path + ":" + function_start.to_s + "]"
           msg_error = " Function contains more than 20 lines (" + count.to_s + " > 20)."
-          puts msg_brackets.bold.red + msg_error.bold
+          puts(msg_brackets.bold.red + msg_error.bold)
         end
       end
       count += 1
@@ -261,7 +261,7 @@ class CodingStyleChecker
       if assignments > 1
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Several assignments on the same line."
-        puts msg_brackets.bold.red + msg_error.bold
+        puts(msg_brackets.bold.red + msg_error.bold)
       end
       line_nb += 1
     end
@@ -275,7 +275,7 @@ class CodingStyleChecker
         msg_error = " Are you sure that this function is allowed: '".bold
         msg_error += $1.bold.red
         msg_error += "'?".bold
-        puts msg_brackets.bold.red + msg_error
+        puts(msg_brackets.bold.red + msg_error)
       end
       while line[0]
         line.scan(/^[^0-9a-zA-Z_](printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/) do |match|
@@ -283,14 +283,14 @@ class CodingStyleChecker
           msg_error = " Are you sure that this function is allowed: '".bold
           msg_error += $1.bold.red
           msg_error += "'?".bold
-          puts msg_brackets.bold.red + msg_error
+          puts(msg_brackets.bold.red + msg_error)
         end
         line.scan(/^[^0-9a-zA-Z_](goto)[^0-9a-zA-Z]/) do |match|
           msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
           msg_error = " Are you sure that this keyword is allowed: '".bold
           msg_error += $1.bold.red
           msg_error += "'?".bold
-          puts msg_brackets.bold.red + msg_error
+          puts(msg_brackets.bold.red + msg_error)
         end
         line[0] = ''
       end
@@ -313,7 +313,7 @@ class CodingStyleChecker
         if count > 3
           msg_brackets = "[" + @file_path + ":" + condition_start.to_s + "]"
           msg_error = " Too many \"else if\" statements."
-          puts msg_brackets.bold.green + msg_error.bold
+          puts(msg_brackets.bold.green + msg_error.bold)
         end
       end
       line_nb += 1
@@ -326,11 +326,11 @@ class CodingStyleChecker
       if line =~ / $/
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Trailing space(s) at the end of the line."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       elsif line =~ /\t$/
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Trailing tabulation(s) at the end of the line."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
@@ -347,7 +347,7 @@ class CodingStyleChecker
       if line[0] == " "
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Wrong indentation: spaces are not allowed."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
@@ -363,7 +363,7 @@ class CodingStyleChecker
     if functions > 5
       msg_brackets = "[" + @file_path + "]"
       msg_error = " More than 5 functions in the same file (" + functions.to_s + " > 5)."
-      puts msg_brackets.bold.red + msg_error.bold
+      puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
 
@@ -375,14 +375,14 @@ class CodingStyleChecker
         if line =~ /^{$/
           msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
           msg_error = " This function takes no parameter, it should take 'void' as argument."
-          puts msg_brackets.bold.red + msg_error.bold
+          puts(msg_brackets.bold.red + msg_error.bold)
         elsif line !~ /^[\t ]*$/
           missing_bracket = false
         end
       elsif line =~ /\(\)[\t ]*{$/
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " This function takes no parameter, it should take 'void' as argument."
-        puts msg_brackets.bold.red + msg_error.bold
+        puts(msg_brackets.bold.red + msg_error.bold)
       elsif line =~ /\(\)[ \t]*$/
         missing_bracket = true
       end
@@ -394,7 +394,7 @@ class CodingStyleChecker
     @file.scan(/\(([^(),]*,){4,}[^()]*\)[ \t\n]+{/).each do |match|
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Function shouldn't take more than 4 arguments."
-      puts msg_brackets.bold.red + msg_error.bold
+      puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
 
@@ -404,12 +404,12 @@ class CodingStyleChecker
       line.scan(/(return|if|else if|else|while|for)\(/) do |match|
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Missing space after keyword '" + match[0] + "'."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line.scan(/(return|if|else if|else|while|for);/) do |match|
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Missing space after keyword '" + match[0] + "'."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
@@ -421,7 +421,7 @@ class CodingStyleChecker
       line.scan(/([^(\t ]+_t|int|signed|unsigned|char|long|short|float|double|void|const|struct [^ ]+)\*/) do |match|
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Misplaced pointer symbol after '" + match[0] + "'."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
@@ -433,7 +433,7 @@ class CodingStyleChecker
       if line =~ (/#define [^ ]+ [0-9]+([.][0-9]+)?/)
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Macros should not be used for constants."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
@@ -443,7 +443,7 @@ class CodingStyleChecker
     if @file !~ /##\n## EPITECH PROJECT, [0-9]{4}\n## .*\n## File description:\n## .*\n##\n.*/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Missing or corrupted header."
-      puts msg_brackets.bold.red + msg_error.bold
+      puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
 
@@ -459,7 +459,7 @@ class CodingStyleChecker
       if level != 0 and (line =~ /\/\*/ or line =~ /\/\//)
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Misplaced comment."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
@@ -471,7 +471,7 @@ class CodingStyleChecker
       line.scan(/,[^ ]/) do
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Missing space after comma."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
@@ -480,7 +480,7 @@ class CodingStyleChecker
   def put_error_sign(sign, line_nb)
     msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
     msg_error = " Misplaced space(s) around '" + sign + "' sign."
-    puts msg_brackets.bold.green + msg_error.bold
+    puts(msg_brackets.bold.green + msg_error.bold)
   end
 
   def check_operators_spaces
@@ -573,7 +573,7 @@ class CodingStyleChecker
       line.scan(/if.*=.*==.*/) do
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Condition and assignment on the same line."
-        puts msg_brackets.bold.green + msg_error.bold
+        puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
