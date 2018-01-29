@@ -178,7 +178,7 @@ class CodingStyleChecker
 
   def check_dirname
     filename = File.basename(@file_path)
-    if filename !~ /^[a-z0-9_]+$/
+    if filename !~ /^[a-z0-9]+([a-z0-9_]+[a-z0-9]+)*$/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Directory names should respect the snake_case naming convention."
       puts msg_brackets.bold.red + msg_error.bold
@@ -187,7 +187,7 @@ class CodingStyleChecker
 
   def check_filename
     filename = File.basename(@file_path)
-    if filename !~ /^[a-z0-9_]+[.][ch]$/
+    if filename !~ /^[a-z0-9]+([a-z0-9_]+[a-z0-9]+)*[.][ch]$/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Filenames should respect the snake_case naming convention."
       puts msg_brackets.bold.red + msg_error.bold
