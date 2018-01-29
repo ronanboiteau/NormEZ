@@ -57,13 +57,13 @@ Here are the [Epitech coding-style] violations checked by NormEZ:
  - Missing space around binary or ternary operator (`=`, `==`, `!=`, `<=`, `>=`, `&&`, `||`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `|`, `^`, `>>`, `<<`, `>>=`, `<<=`).
  - Extra space after unary operators (`!`, `sizeof`, `++`, `--`).
  - Condition and assignment on the same line.
+ - Directory names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
 
 ## To-do
 
 Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ:
  - Wrong indentation level in `.c` and `.h` files.
  - Wrong indentation level in pre-processor directives.
- - Folder names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
  - Function names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
  - Functions must be separated by *one and only one* empty line in `.c` files.
  - Extra space between function name and opening parenthesis.

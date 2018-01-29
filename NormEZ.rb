@@ -56,9 +56,10 @@ end
 
 module FileType
   UNKNOWN = 0
-  MAKEFILE = 1
-  HEADER = 2
-  SOURCE = 3
+  DIRECTORY = 1
+  MAKEFILE = 2
+  HEADER = 3
+  SOURCE = 4
 end
 
 class FileManager
@@ -66,8 +67,15 @@ class FileManager
   attr_accessor :path
   attr_accessor :type
 
-  def initialize(path)
+  def initialize(path, type)
     @path = path
+    @type = type
+    if @type == FileType::UNKNOWN
+      @type = get_file_type
+    end
+  end
+
+  def get_file_type
     if @path =~ /Makefile$/
       @type = FileType::MAKEFILE
     elsif @path =~ /[.]h$/
@@ -91,18 +99,26 @@ end
 class FilesRetriever
 
   def initialize
-    @files = Dir['**/*'].select { |f| File.file?(f) }
+    @files = Dir['**/*'].select{ |f| File.file? f }
     @nb_files = @files.size
-    @index = 0
+    @idx_files = 0
+
+    @dirs = Dir['**/*'].select{ |d| File.directory? d }
+    @nb_dirs = @dirs.size
+    @idx_dirs = 0
   end
 
   def get_next_file
-    if @index >= @nb_files
-      return nil
+    if @idx_files < @nb_files
+      file = FileManager.new(@files[@idx_files], FileType::UNKNOWN)
+      @idx_files += 1
+      return file
+    elsif @idx_dirs < @nb_dirs
+      file = FileManager.new(@dirs[@idx_dirs], FileType::DIRECTORY)
+      @idx_dirs += 1
+      return file
     end
-    file = FileManager.new(@files[@index])
-    @index += 1
-    file
+    nil
   end
 
 end
@@ -111,8 +127,11 @@ class CodingStyleChecker
 
   def initialize(file_manager)
     @file_path = file_manager.path
-    @file = file_manager.get_content
     @type = file_manager.type
+    @file = nil
+    if @type != FileType::UNKNOWN and @type != FileType::DIRECTORY
+      @file = file_manager.get_content
+    end
     check_file
   end
 
@@ -121,6 +140,10 @@ class CodingStyleChecker
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Forbidden file. Do not forget to remove it before your final push."
       puts msg_brackets.bold.red + msg_error.bold
+      return
+    end
+    if @type == FileType::DIRECTORY
+      check_dirname
       return
     end
     check_trailing_spaces_tabs
@@ -150,6 +173,15 @@ class CodingStyleChecker
       end
     elsif @type == FileType::MAKEFILE
       check_header_makefile
+    end
+  end
+
+  def check_dirname
+    filename = File.basename(@file_path)
+    if filename !~ /^[a-z0-9_]+$/
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Directory names should respect the snake_case naming convention."
+      puts msg_brackets.bold.red + msg_error.bold
     end
   end
 
