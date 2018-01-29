@@ -8,7 +8,7 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 
 ## Table of contents
 
-* __[Getting started](#getting_started)__
+* __[Getting started](#getting-started)__
   * [Requirements](#requirements)
   * [How to use NormEZ?](#how-to-use-normez)
 * __[Features](#features)__
@@ -17,7 +17,6 @@ Coding-style checker for Epitech students. This program analyzes your C source f
   * [Known issues](#known-issues)
   * [Report a bug](#report-a-bug)
 * __[Getting involved](#getting-involved)__
-  * [Leave a star](#leave-a-star)
   * [Share](#share)
   * [Contribute](#contribute)
 * __[Author](#author)__
@@ -108,13 +107,10 @@ If you found a bug that isn't listed above in as a known issue, feel free to [cr
 
 ## Getting involved
 
-### Leave a star
-
-[Leave NormEZ a star](https://github.com/ronanboiteau/NormEZ/stargazers) if you like this repository!
-
 ### Share
 
-Share the link to this repository with your friends at Epitech!
+ - Leave NormEZ [a star](https://github.com/ronanboiteau/NormEZ/stargazers)
+ - Share the link to this repository with your friends at Epitech
 
 ### Contribute
 
