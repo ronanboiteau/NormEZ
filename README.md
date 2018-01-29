@@ -64,7 +64,6 @@ Here are the [Epitech coding-style] violations checked by NormEZ:
 Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ:
  - Wrong indentation level in `.c` and `.h` files.
  - Wrong indentation level in pre-processor directives.
- - Function names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
  - Functions must be separated by *one and only one* empty line in `.c` files.
  - Extra space between function name and opening parenthesis.
  - Misplaced curly brackets.
