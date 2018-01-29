@@ -6,17 +6,35 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 
 <img alt="Epitech logo" src="/artwork/epitech-logo.png" width="304" height="144"/>
 
-## Requirements
+## Table of contents
+
+* __[Getting started](#getting_started)__
+  * [Requirements](#requirements)
+  * [How to use NormEZ?](#how-to-use-normez)
+* __[Features](#features)__
+* __[To-do](#to-do)__
+* __[Bugs](#bugs)__
+  * [Known issues](#known-issues)
+  * [Report a bug](#report-a-bug)
+* __[Getting involved](#getting-involved)__
+  * [Leave a star](#leave-a-star)
+  * [Share](#share)
+  * [Contribute](#contribute)
+* __[Author](#author)__
+
+## Getting started
+
+### Requirements
 
  - [Ruby](https://www.ruby-lang.org/en/)
 
-### Installing Ruby on Fedora (Epitech's dump 2017)
+#### Installing Ruby on Fedora (Epitech's dump 2017)
 
 ```
 sudo dnf install ruby
 ```
 
-## How to use NormEZ?
+### How to use NormEZ?
 
  - Clone the repository:
 ```
@@ -88,9 +106,22 @@ Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ:
 
 If you found a bug that isn't listed above in as a known issue, feel free to [create a GitHub issue](https://github.com/ronanboiteau/NormEZ/issues).
 
-## Enjoying NormEZ?
+## Getting involved
 
-Don't forget to leave a [star](https://github.com/ronanboiteau/NormEZ/stargazers) if you like this repository!
+### Leave a star
+
+[Leave NormEZ a star](https://github.com/ronanboiteau/NormEZ/stargazers) if you like this repository!
+
+### Share
+
+Share the link to this repository with your friends at Epitech!
+
+### Contribute
+
+You want to add awesome features to NormEZ? Here's how:
+ 1. [Fork](https://github.com/ronanboiteau/NormEZ/network/members) NormEZ
+ 2. Commit & push a new feature to the forked repository
+ 3. Open a [pull request](https://github.com/ronanboiteau/NormEZ/pulls) so I can merge your work in this repository :)
 
 ## Author
 
