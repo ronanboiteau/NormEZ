@@ -55,29 +55,35 @@ Here are the [Epitech coding-style] violations checked by NormEZ:<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Missing or corrupted header in sources files (`.c`), headers (`.h`) & `Makefile`s.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Functions that contain more than 20 lines.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Several semicolon-separated assignments on the same line.<br/>
-<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Forbidden keyword (`goto`).<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> *[Not exhaustive]* Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`...).<br/>
-<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Too many `else if` statements.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Trailing space(s) and/or tabulation(s) at the end of a line.<br/>
-<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Space(s) in indentation.<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Filenames that don't respect the [snake_case] naming convention.<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Condition and assignment on the same line.<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Directory names that don't respect the [snake_case] naming convention.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Too many functions in file (> 5).<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Functions with no parameters that don't take void as argument in their declaration.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Functions with too many arguments (> 4).<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Space(s) in indentation.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Missing space after keyword.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Misplaced pointer symbol(s).<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Filenames that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Macros used for constants.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Macros containing multiple assignments.<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Too many `else if` statements.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Misplaced comments.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Missing space after comma.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Missing space around binary or ternary operator (`=`, `==`, `!=`, `<=`, `>=`, `&&`, `||`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `|`, `^`, `>>`, `<<`, `>>=`, `<<=`).<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Extra space after unary operators (`!`, `sizeof`, `++`, `--`).<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Condition and assignment on the same line.<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Directory names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Forbidden keyword (`goto`).<br/>
 
 ## To-do
 
 Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ:
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Typedef not ending with `_t`<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Identifiers that don't respect the [snake_case] naming convention.<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Macros, global constants or enums that don't respect the SNAKE_CASE convention (uppercase [snake_case]).<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Function prototypes, typedefs, global variables, macros or static inline functions in `.c` source files.<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Nested conditonal branchings (depth > 2).<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Header files not protected against double inclusion<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Wrong indentation level in `.c` and `.h` files.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Wrong indentation level in pre-processor directives.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Functions must be separated by *one and only one* empty line in `.c` files.<br/>
@@ -87,12 +93,6 @@ Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ:
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Variable not declared at the beginning of function.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Missing empty line after variable declarations.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Extra empty lines in function.<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Typedef not ending with `_t`<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Identifiers that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Macros, global constants or enums that don't respect the SNAKE_CASE convention (uppercase [snake_case](https://en.wikipedia.org/wiki/Snake_case)).<br/>
-<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Nested conditonal branchings (depth > 2).<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Function prototypes, typedefs, global variables, macros or static inline functions in `.c` source files.<br/>
-<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Header files not protected against double inclusion<br/>
 
 ## Bugs
 
@@ -125,3 +125,4 @@ You want to add awesome features to NormEZ? Here's how:
 <!-- Links -->
 [Epitech coding-style]: /epitech_c_coding_style.pdf
 [NormEZ]: https://github.com/ronanboiteau/NormEZ
+[snake_case]: https://en.wikipedia.org/wiki/Snake_case
