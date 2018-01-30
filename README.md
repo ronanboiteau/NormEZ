@@ -56,7 +56,7 @@ Here are the [Epitech coding-style] violations checked by NormEZ:<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Functions that contain more than 20 lines.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Several semicolon-separated assignments on the same line.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Forbidden keyword (`goto`).<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> *[Not exhaustive]* Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...).<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> *[Not exhaustive]* Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`...).<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Too many `else if` statements.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Trailing space(s) and/or tabulation(s) at the end of a line.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Space(s) in indentation.<br/>
