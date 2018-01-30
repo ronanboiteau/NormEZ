@@ -50,7 +50,7 @@ ruby NormEZ.rb
 
 Here are the [Epitech coding-style] violations checked by NormEZ:
  - Lines with too many columns (> 80).
- - Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="10" height="10"/> Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).
  - *[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
  - Missing or corrupted header.
  - Missing or corrupted header in `Makefile`.
