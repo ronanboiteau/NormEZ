@@ -48,52 +48,52 @@ ruby NormEZ.rb
 
 ## Features
 
-Here are the [Epitech coding-style] violations checked by NormEZ:
- - Lines with too many columns (> 80).
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="10" height="10"/> Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).
- - *[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).
- - Missing or corrupted header.
- - Missing or corrupted header in `Makefile`.
- - Functions that contain more than 20 lines.
- - Several semicolon-separated assignments on the same line.
- - Forbidden keyword (`goto`).
- - *[Not exhaustive]* Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...).
- - Too many `else if` statements.
- - Trailing space(s) and/or tabulation(s) at the end of a line.
- - Space(s) in indentation.
- - Too many functions in file (> 5).
- - Functions with no parameters that don't take void as argument in their declaration.
- - Functions with too many arguments (> 4).
- - Missing space after keyword.
- - Misplaced pointer symbol(s).
- - Filenames that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
- - Macros used for constants.
- - Macros containing multiple assignments.
- - Misplaced comments.
- - Missing  space after comma.
- - Missing space around binary or ternary operator (`=`, `==`, `!=`, `<=`, `>=`, `&&`, `||`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `|`, `^`, `>>`, `<<`, `>>=`, `<<=`).
- - Extra space after unary operators (`!`, `sizeof`, `++`, `--`).
- - Condition and assignment on the same line.
- - Directory names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
+Here are the [Epitech coding-style] violations checked by NormEZ:<br/>
+Lines with too many columns (> 80).<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="11" height="12"/> Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).<br/>
+*[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).<br/>
+Missing or corrupted header.<br/>
+Missing or corrupted header in `Makefile`.<br/>
+Functions that contain more than 20 lines.<br/>
+Several semicolon-separated assignments on the same line.<br/>
+Forbidden keyword (`goto`).<br/>
+*[Not exhaustive]* Forbidden function (`printf()`, `dprintf()`, `atoi()`, `memcpy()`, `scanf()`, `strlen()`, `strdup()`, ...).<br/>
+Too many `else if` statements.<br/>
+Trailing space(s) and/or tabulation(s) at the end of a line.<br/>
+Space(s) in indentation.<br/>
+Too many functions in file (> 5).<br/>
+Functions with no parameters that don't take void as argument in their declaration.<br/>
+Functions with too many arguments (> 4).<br/>
+Missing space after keyword.<br/>
+Misplaced pointer symbol(s).<br/>
+Filenames that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).<br/>
+Macros used for constants.<br/>
+Macros containing multiple assignments.<br/>
+Misplaced comments.<br/>
+Missing  space after comma.<br/>
+Missing space around binary or ternary operator (`=`, `==`, `!=`, `<=`, `>=`, `&&`, `||`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `|`, `^`, `>>`, `<<`, `>>=`, `<<=`).<br/>
+Extra space after unary operators (`!`, `sizeof`, `++`, `--`).<br/>
+Condition and assignment on the same line.<br/>
+Directory names that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).<br/>
 
 ## To-do
 
 Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ:
- - Wrong indentation level in `.c` and `.h` files.
- - Wrong indentation level in pre-processor directives.
- - Functions must be separated by *one and only one* empty line in `.c` files.
- - Extra space between function name and opening parenthesis.
- - Misplaced curly brackets.
- - Multiple variables declared on the same line.
- - Variable not declared at the beginning of function.
- - Missing empty line after variable declarations.
- - Extra empty lines.
- - Typedef not ending with `_t`
- - Identifiers that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).
- - Macros, global constants or enums that don't respect the SNAKE_CASE convention (uppercase [snake_case](https://en.wikipedia.org/wiki/Snake_case)).
- - Nested conditonal branchings (depth > 2).
- - Function prototypes, typedefs, global variables, macros or static inline functions in `.c` source files.
- - Header files not protected against double inclusion
+Wrong indentation level in `.c` and `.h` files.<br/>
+Wrong indentation level in pre-processor directives.<br/>
+Functions must be separated by *one and only one* empty line in `.c` files.<br/>
+Extra space between function name and opening parenthesis.<br/>
+Misplaced curly brackets.<br/>
+Multiple variables declared on the same line.<br/>
+Variable not declared at the beginning of function.<br/>
+Missing empty line after variable declarations.<br/>
+Extra empty lines.<br/>
+Typedef not ending with `_t`<br/>
+Identifiers that don't respect the [snake_case naming convention](https://en.wikipedia.org/wiki/Snake_case).<br/>
+Macros, global constants or enums that don't respect the SNAKE_CASE convention (uppercase [snake_case](https://en.wikipedia.org/wiki/Snake_case)).<br/>
+Nested conditonal branchings (depth > 2).<br/>
+Function prototypes, typedefs, global variables, macros or static inline functions in `.c` source files.<br/>
+Header files not protected against double inclusion<br/>
 
 ## Bugs
 
