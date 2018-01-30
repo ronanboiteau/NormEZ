@@ -12,6 +12,8 @@ Coding-style checker for Epitech students. This program analyzes your C source f
   * [Requirements](#requirements)
   * [How to use NormEZ?](#how-to-use-normez)
 * __[Features](#features)__
+  * [Known issues](#known-issues)
+  * [Known issues](#known-issues)
 * __[To-do](#to-do)__
 * __[Bugs](#bugs)__
   * [Known issues](#known-issues)
@@ -48,7 +50,11 @@ ruby NormEZ.rb
 
 ## Features
 
-Here are the [Epitech coding-style] violations checked by NormEZ:<br/>
+Here are the [Epitech coding-style] violations checked by NormEZ.
+
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Means it is a ***major infraction***.<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Means it is a ***minor infraction***.<br/>
+
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Lines with too many columns (> 80).<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> *[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).<br/>
@@ -77,8 +83,12 @@ Here are the [Epitech coding-style] violations checked by NormEZ:<br/>
 
 ## To-do
 
-Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ:
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Typedef not ending with `_t`<br/>
+Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ.
+
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Means it is a ***major infraction***.<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Means it is a ***minor infraction***.<br/>
+
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Typedef not ending with `_t`.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Identifiers that don't respect the [snake_case] naming convention.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Macros, global constants or enums that don't respect the SNAKE_CASE convention (uppercase [snake_case]).<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Function prototypes, typedefs, global variables, macros or static inline functions in `.c` source files.<br/>
