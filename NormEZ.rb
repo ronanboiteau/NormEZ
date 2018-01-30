@@ -406,11 +406,6 @@ class CodingStyleChecker
         msg_error = " Missing space after keyword '" + match[0] + "'."
         puts(msg_brackets.bold.green + msg_error.bold)
       end
-      line.scan(/(return|if|else if|else|while|for);/) do |match|
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Missing space after keyword '" + match[0] + "'."
-        puts(msg_brackets.bold.green + msg_error.bold)
-      end
       line_nb += 1
     end
   end
