@@ -51,9 +51,8 @@ ruby NormEZ.rb
 Here are the [Epitech coding-style] violations checked by NormEZ:<br/>
 Lines with too many columns (> 80).<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="11" height="12"/> Forbidden files: every regular file that does not match `Makefile`, `*.c` or `*.h` (ex: `*.o`, `*.gch`, `bsq`, ...).<br/>
-*[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).<br/>
-Missing or corrupted header.<br/>
-Missing or corrupted header in `Makefile`.<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="11" height="12"/> *[Not exhaustive]* Too broad filenames (ex: `string.c`, `algo.c`, `my_algorithm.c`, ...).<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="11" height="12"/> Missing or corrupted header in sources files (`.c`), headers (`.h`) & `Makefile`s.<br/>
 Functions that contain more than 20 lines.<br/>
 Several semicolon-separated assignments on the same line.<br/>
 Forbidden keyword (`goto`).<br/>
@@ -61,7 +60,7 @@ Forbidden keyword (`goto`).<br/>
 Too many `else if` statements.<br/>
 Trailing space(s) and/or tabulation(s) at the end of a line.<br/>
 Space(s) in indentation.<br/>
-Too many functions in file (> 5).<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="11" height="12"/> Too many functions in file (> 5).<br/>
 Functions with no parameters that don't take void as argument in their declaration.<br/>
 Functions with too many arguments (> 4).<br/>
 Missing space after keyword.<br/>
