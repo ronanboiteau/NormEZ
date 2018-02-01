@@ -118,8 +118,8 @@ If you found a bug that isn't listed above in as a known issue, feel free to [cr
 
 ### Share
 
- - Leave NormEZ [a star](https://github.com/ronanboiteau/NormEZ/stargazers)
- - Share the link to this repository with your friends at Epitech
+ - Enjoying NormEZ? Leave it [a star](https://github.com/ronanboiteau/NormEZ/stargazers) to show your support :)
+ - And share the link to this repository with your friends at Epitech!
 
 ### Contribute
 
