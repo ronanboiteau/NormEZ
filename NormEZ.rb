@@ -472,67 +472,67 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       # A space on both ends
-      line.scan(/([^&|=^><+\-*%\/! ]=[^=]|[^&|=^><+\-*%\/!]=[^= ])/) do
+      line.scan(/([^\t&|=^><+\-*%\/! ]=[^=]|[^&|=^><+\-*%\/!]=[^= ])/) do
         put_error_sign("=", line_nb)
       end
-      line.scan(/([^ ]==|==[^ ])/) do
+      line.scan(/([^\t ]==|==[^ ])/) do
         put_error_sign("==", line_nb)
       end
-      line.scan(/([^ ]!=|!=[^ ])/) do
+      line.scan(/([^\t ]!=|!=[^ ])/) do
         put_error_sign("!=", line_nb)
       end
-      line.scan(/([^ <]<=|[^<]<=[^ ])/) do
+      line.scan(/([^\t <]<=|[^<]<=[^ ])/) do
         put_error_sign("<=", line_nb)
       end
-      line.scan(/([^ >]>=|[^>]>=[^ ])/) do
+      line.scan(/([^\t >]>=|[^>]>=[^ ])/) do
         put_error_sign(">=", line_nb)
       end
-      line.scan(/([^ ]&&|&&[^ ])/) do
+      line.scan(/([^\t ]&&|&&[^ ])/) do
         put_error_sign("&&", line_nb)
       end
-      line.scan(/([^ ]\|\||\|\|[^ ])/) do
+      line.scan(/([^\t ]\|\||\|\|[^ ])/) do
         put_error_sign("||", line_nb)
       end
-      line.scan(/([^ ]\+=|\+=[^ ])/) do
+      line.scan(/([^\t ]\+=|\+=[^ ])/) do
         put_error_sign("+=", line_nb)
       end
-      line.scan(/([^ ]-=|-=[^ ])/) do
+      line.scan(/([^\t ]-=|-=[^ ])/) do
         put_error_sign("-=", line_nb)
       end
-      line.scan(/([^ ]\*=|\*=[^ ])/) do
+      line.scan(/([^\t ]\*=|\*=[^ ])/) do
         put_error_sign("*=", line_nb)
       end
-      line.scan(/([^ ]\/=|\/=[^ ])/) do
+      line.scan(/([^\t ]\/=|\/=[^ ])/) do
         put_error_sign("/=", line_nb)
       end
-      line.scan(/([^ ]%=|%=[^ ])/) do
+      line.scan(/([^\t ]%=|%=[^ ])/) do
         put_error_sign("%=", line_nb)
       end
-      line.scan(/([^ ]&=|&=[^ ])/) do
+      line.scan(/([^\t ]&=|&=[^ ])/) do
         put_error_sign("&=", line_nb)
       end
-      line.scan(/([^ ]\^=|\^=[^ ])/) do
+      line.scan(/([^\t ]\^=|\^=[^ ])/) do
         put_error_sign("^=", line_nb)
       end
-      line.scan(/([^ ]\|=|\|=[^ ])/) do
+      line.scan(/([^\t ]\|=|\|=[^ ])/) do
         put_error_sign("|=", line_nb)
       end
-      line.scan(/([^ |]\||\|[^ =|])/) do
+      line.scan(/([^\t |]\||\|[^ =|])/) do
         put_error_sign("|", line_nb)
       end
-      line.scan(/([^ ]\^|\^[^ =])/) do
+      line.scan(/([^\t ]\^|\^[^ =])/) do
         put_error_sign("^", line_nb)
       end
-      line.scan(/([^ ]>>[^=]|>>[^ =])/) do
+      line.scan(/([^\t ]>>[^=]|>>[^ =])/) do
         put_error_sign(">>", line_nb)
       end
-      line.scan(/([^ ]<<[^=]|<<[^ =])/) do
+      line.scan(/([^\t ]<<[^=]|<<[^ =])/) do
         put_error_sign("<<", line_nb)
       end
-      line.scan(/([^ ]>>=|>>=[^ ])/) do
+      line.scan(/([^\t ]>>=|>>=[^ ])/) do
         put_error_sign(">>=", line_nb)
       end
-      line.scan(/([^ ]<<=|<<=[^ ])/) do
+      line.scan(/([^\t ]<<=|<<=[^ ])/) do
         put_error_sign("<<=", line_nb)
       end
       # No space after
