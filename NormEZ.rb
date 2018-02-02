@@ -270,29 +270,19 @@ class CodingStyleChecker
   def check_forbidden_keyword_func
     line_nb = 1
     @file.each_line do |line|
-      line.scan(/^(printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/) do |match|
+      line.scan(/(^|[^0-9a-zA-Z_])(printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/) do
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Are you sure that this function is allowed: '".bold
-        msg_error += $1.bold.red
+        msg_error += $2.bold.red
         msg_error += "'?".bold
         puts(msg_brackets.bold.red + msg_error)
       end
-      while line[0]
-        line.scan(/^[^0-9a-zA-Z_](printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/) do |match|
-          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-          msg_error = " Are you sure that this function is allowed: '".bold
-          msg_error += $1.bold.red
-          msg_error += "'?".bold
-          puts(msg_brackets.bold.red + msg_error)
-        end
-        line.scan(/^[^0-9a-zA-Z_](goto)[^0-9a-zA-Z]/) do |match|
-          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-          msg_error = " Are you sure that this keyword is allowed: '".bold
-          msg_error += $1.bold.red
-          msg_error += "'?".bold
-          puts(msg_brackets.bold.red + msg_error)
-        end
-        line[0] = ''
+      line.scan(/(^|[^0-9a-zA-Z_])(goto)[^0-9a-zA-Z]/) do
+        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_error = " Are you sure that this keyword is allowed: '".bold
+        msg_error += $2.bold.red
+        msg_error += "'?".bold
+        puts(msg_brackets.bold.red + msg_error)
       end
       line_nb += 1
     end
