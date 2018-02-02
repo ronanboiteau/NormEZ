@@ -565,7 +565,7 @@ class CodingStyleChecker
   def check_condition_assignment
     line_nb = 1
     @file.each_line do |line|
-      line.scan(/if.*=.*==.*/) do
+      line.scan(/(if.*[^&|=^><+\-*%\/!]=[^=].*==.*)|(if.*==.*[^&|=^><+\-*%\/!]=[^=].*)/) do
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Condition and assignment on the same line."
         puts(msg_brackets.bold.green + msg_error.bold)
