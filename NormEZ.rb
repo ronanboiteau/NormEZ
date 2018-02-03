@@ -138,7 +138,7 @@ class CodingStyleChecker
   def check_file
     if @type == FileType::UNKNOWN
       msg_brackets = "[" + @file_path + "]"
-      msg_error = " Forbidden file. Do not forget to remove it before your final push."
+      msg_error = " This is probably a forbidden file. You might not want to commit it."
       puts(msg_brackets.bold.red + msg_error.bold)
       return
     end
@@ -517,7 +517,7 @@ class CodingStyleChecker
       line.scan(/([^\t ]\|=|\|=[^ ])/) do
         put_error_sign("|=", line_nb)
       end
-      line.scan(/([^\t |]\||\|[^ =|])/) do
+      line.scan(/([^\t |]\|[^|]|[^|]\|[^ =|])/) do
         put_error_sign("|", line_nb)
       end
       line.scan(/([^\t ]\^|\^[^ =])/) do
