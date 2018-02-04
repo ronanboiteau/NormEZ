@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.0
-# Update: Adding version management
+# NormEZ_v1.1
+# Update: Adding colors on messages
 
 class String
 
@@ -582,7 +582,7 @@ class VersionManager
 
   def get_versions
     if !@remote
-      puts "Error while checking version... Skip..."
+      puts "Error while checking version... Skip...".red
       system "rm -rf #{@remote_path}"
       return false
     end
@@ -598,22 +598,23 @@ class VersionManager
     if @current < @latest
       update_msg = %x(cat #{@remote_path} | grep 'Update: ' | cut -c 11- | head -1 | tr -d '.')
       
-      puts "A new version available: NormEZ_v#{@latest_ver}"
-      puts " => Update: #{update_msg}"
+      puts "A new version available: NormEZ_v#{@latest_ver}".bold.yellow
+      print " => Update: ".bold
+      puts "#{update_msg}".bold.green
       print "Update script ? [Y/n]: "
       response = gets.chomp
 
       if response == "n" || response == "N"
-        puts "Update skiped. If you want to stay on this version whitout update, add the [--no-update, -nu] flag."
+        puts "Update skiped. If you want to stay on this version whitout update, add the [--no-update, -nu] flag.".blue
         return
       elsif response == "Y" || response == "y" || response == ""
         system "cat #{@script_path} > #{@backup_path}"
-        puts "Download new version... Please wait..."
+        puts "Download new version... Please wait...".green
 
         resp = system "cat #{@remote_path} > #{@script_path}"
 
         if !resp
-          puts "Error during updating... Rollback file.\n"
+          puts "Error during updating... Rollback file.\n".red
           system "cat #{@backup_path} > #{@script_path}"
           Kernel.exit(false)
         end
@@ -627,7 +628,7 @@ class VersionManager
 end
 
 if ARGV[0] != false && (ARGV[0] == "-nu" || ARGV[0] == "--no-update")
-  puts "Update skiped (flag \"#{ARGV[0]}\" called)."
+  puts "Update skiped (flag \"#{ARGV[0]}\" called).".blue
 else
   version = VersionManager.new($0)
 
