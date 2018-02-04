@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# NormEZ_v0.0.1
+# NormEZ_v1.0
 
 class String
 
@@ -69,12 +69,18 @@ class VersionManager
 
   def initialize(script_path)
     @current = %x(cat #{script_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
-    @latest = %x(curl -s https://raw.githubusercontent.com/mrlizzard/NormEZ/master/NormEZ.rb | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
+    @latest = %x(curl -s https://raw.githubusercontent.com/mrlizzard/NormEZ/master/NormEZ.rb?nocache | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
   end
 
   def current
     puts "Current version: #{@current}"
     puts "Latest version: #{@latest}"
+
+    if @current < @latest
+      puts "A new version available: #{@latest}"
+    end
+
+    Kernel.exit(false)
   end
 
 end
