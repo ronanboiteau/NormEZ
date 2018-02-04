@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.0
-# Update: Change 'puts' in 'print'
+# NormEZ_v1.2
+# Update: Add update check in end of script
 
 class String
 
