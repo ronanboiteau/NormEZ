@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.0
-# Update: First version
+# NormEZ_v2.0
+# Update: Test new version management
 
 class String
 
