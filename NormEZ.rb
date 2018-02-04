@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 # NormEZ_v1.1
-# Update: Adding colors on messages
+# Update: Change 'puts' in 'print'
 
 class String
 
@@ -598,29 +598,30 @@ class VersionManager
     if @current < @latest
       update_msg = %x(cat #{@remote_path} | grep 'Update: ' | cut -c 11- | head -1 | tr -d '.')
       
-      puts "A new version available: NormEZ_v#{@latest_ver}".bold.yellow
+      print "A new version available: NormEZ_v#{@latest_ver}".bold.yellow
       print " => Update: ".bold
-      puts "#{update_msg}".bold.green
+      puts "#{update_msg}".bold.blue
       print "Update script ? [Y/n]: "
       response = gets.chomp
 
       if response == "n" || response == "N"
-        puts "Update skiped. If you want to stay on this version whitout update, add the [--no-update, -nu] flag.".blue
+        print "Update skiped. If you want to stay on this version whitout update, add the [--no-update, -nu] flag.".blue
         return
       elsif response == "Y" || response == "y" || response == ""
         system "cat #{@script_path} > #{@backup_path}"
-        puts "Download new version... Please wait...".green
+        print "Download new version... Please wait...".bold.green
 
         resp = system "cat #{@remote_path} > #{@script_path}"
 
         if !resp
-          puts "Error during updating... Rollback file.\n".red
+          print "Error during updating... Rollback file.".bold.red
           system "cat #{@backup_path} > #{@script_path}"
           Kernel.exit(false)
         end
 
         system "rm -rf #{@backup_path}"
         system "rm -rf #{@remote_path}"
+        print "Script updated !".bold.green
       end
     end
   end
