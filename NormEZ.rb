@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# NormEZ_v1.1
+# NormEZ_v1.2
 # Update: Change 'puts' in 'print'
 
 class String
