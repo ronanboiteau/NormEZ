@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v2.0
-# Update: Add version management
+# NormEZ_v1.0
+# Update: First version
 
 class String
 
@@ -64,29 +64,6 @@ module FileType
   MAKEFILE = 2
   HEADER = 3
   SOURCE = 4
-end
-
-class VersionManager
-
-  def initialize(script_path)
-    @current = %x(cat #{script_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
-    @latest = %x(curl -s https://raw.githubusercontent.com/mrlizzard/NormEZ/master/NormEZ.rb?nocache | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
-  end
-
-  def current
-    puts "Current version: #{@current}"
-    puts "Latest version: #{@latest}"
-
-    if @current < @latest
-      update_msg = %x(curl -s https://raw.githubusercontent.com/mrlizzard/NormEZ/master/NormEZ.rb?nocache | grep 'Update: ' | cut -c 11- | head -1 | tr -d '.')
-      
-      puts "A new version available: #{@latest}"
-      puts " => #{update_msg}"
-    end
-
-    Kernel.exit(false)
-  end
-
 end
 
 class FileManager
@@ -593,8 +570,73 @@ class CodingStyleChecker
 
 end
 
-version = VersionManager.new($0)
-version.current
+class VersionManager
+
+  def initialize(script_path)
+    path = File.dirname(script_path)
+    @script_path = script_path
+    @remote = system "curl -s https://raw.githubusercontent.com/mrlizzard/NormEZ/master/NormEZ.rb >> #{path}/remote"
+    @remote_path = "#{path}/remote"
+    @backup_path = "#{path}/backup"
+  end
+
+  def get_versions
+    if !@remote
+      puts "Error while checking version... Skip..."
+      system "rf -fi #{@remote_path}"
+      return false
+    end
+
+    @current = %x(cat #{@script_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
+    @latest = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
+    @latest_ver = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1)
+
+    return true
+  end
+
+  def check_latest
+    if @current < @latest
+      update_msg = %x(cat #{@remote_path} | grep 'Update: ' | cut -c 11- | head -1 | tr -d '.')
+      
+      puts "A new version available: NormEZ_v#{@latest_ver}"
+      puts " => Update: #{update_msg}"
+      print "Update script ? [Y/n]: "
+      response = gets.chomp
+
+      if response == "n" || response == "N"
+        puts "Update skiped. If you want to stay on this version whitout update, add the [--no-update, -nu] flag."
+        return
+      elsif response == "Y" || response == "y" || response == ""
+        system "cat #{@script_path} > #{@backup_path}"
+        puts "Download new version... Please wait..."
+
+        resp = system "cat #{@remote_path} > #{@script_path}"
+
+        if !resp
+          puts "Error during updating... Rollback file.\n"
+          system "cat #{@backup_path} > #{@script_path}"
+          Kernel.exit(false)
+        end
+
+        system "rm -fi #{@backup_path}"
+        system "rm -fi #{@remote_path}"
+      end
+    end
+  end
+
+end
+
+if ARGV[0] != false && (ARGV[0] == "-nu" || ARGV[0] == "--no-update")
+  puts "Update skiped (flag \"#{ARGV[0]}\" called)."
+else
+  version = VersionManager.new($0)
+
+  if version.get_versions
+    version.check_latest
+
+    puts "\n"
+  end
+end
 
 files_retriever = FilesRetriever.new
 while (next_file = files_retriever.get_next_file)
