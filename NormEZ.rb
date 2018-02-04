@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 # NormEZ_v2.0
+# Update: Add version management
 
 class String
 
@@ -77,7 +78,10 @@ class VersionManager
     puts "Latest version: #{@latest}"
 
     if @current < @latest
+      update_msg = %x(curl -s https://raw.githubusercontent.com/mrlizzard/NormEZ/master/NormEZ.rb?nocache | grep 'Update: ' | cut -c 11- | head -1 | tr -d '.')
+      
       puts "A new version available: #{@latest}"
+      puts " => #{update_msg}"
     end
 
     Kernel.exit(false)
