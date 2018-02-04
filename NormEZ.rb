@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v2.0
-# Update: Test new version management
+# NormEZ_v1.0
+# Update: Adding version management
 
 class String
 
@@ -583,7 +583,7 @@ class VersionManager
   def get_versions
     if !@remote
       puts "Error while checking version... Skip..."
-      system "rf -fi #{@remote_path}"
+      system "rm -rf #{@remote_path}"
       return false
     end
 
@@ -618,8 +618,8 @@ class VersionManager
           Kernel.exit(false)
         end
 
-        system "rm -fi #{@backup_path}"
-        system "rm -fi #{@remote_path}"
+        system "rm -rf #{@backup_path}"
+        system "rm -rf #{@remote_path}"
       end
     end
   end
