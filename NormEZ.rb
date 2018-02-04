@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# NormEZ_v1.0
+# NormEZ_v2.0
 
 class String
 
