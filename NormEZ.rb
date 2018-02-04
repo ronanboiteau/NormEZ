@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# NormEZ_v1.2
+# NormEZ_v1.0
 # Update: Change 'puts' in 'print'
 
 class String
@@ -591,7 +591,11 @@ class VersionManager
     @latest = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
     @latest_ver = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1)
 
-    return true
+    if @current < @latest
+      return true
+    end
+
+    return false
   end
 
   def check_latest
@@ -605,8 +609,8 @@ class VersionManager
       response = gets.chomp
 
       if response == "n" || response == "N"
-        print "Update skiped. If you want to stay on this version whitout update, add the [--no-update, -nu] flag.".blue
-        return
+        puts "Update skiped. If you want to stay on this version whitout update, add the [--no-update, -nu] flag.".bold.blue
+        return "skiped"
       elsif response == "Y" || response == "y" || response == ""
         system "cat #{@script_path} > #{@backup_path}"
         print "Download new version... Please wait...".bold.green
@@ -622,25 +626,45 @@ class VersionManager
         system "rm -rf #{@backup_path}"
         system "rm -rf #{@remote_path}"
         print "Script updated !".bold.green
+
+        return true
+      else
+        puts "Unknown response. Retry with [Y/n]. Skip update.".bold.red
+        return "skiped"
       end
     end
   end
 
 end
 
+## Main script
+
+updating = "default"
+
 if ARGV[0] != false && (ARGV[0] == "-nu" || ARGV[0] == "--no-update")
-  puts "Update skiped (flag \"#{ARGV[0]}\" called).".blue
+  puts "Update skiped (flag \"#{ARGV[0]}\" called).".bold.blue
 else
   version = VersionManager.new($0)
 
   if version.get_versions
-    version.check_latest
+    updating = version.check_latest
 
     puts "\n"
   end
 end
 
 files_retriever = FilesRetriever.new
+
 while (next_file = files_retriever.get_next_file)
   CodingStyleChecker.new(next_file)
+end
+
+print "\n[UPDATE] ".bold.yellow
+
+if updating == true
+  puts "NormEZ script successfully updated !".green.bold
+elsif updating == false
+  puts "Error while script update. See above for more details.".bold.red
+elsif updating == "skiped"
+  puts "Update skiped.".bold.cyan
 end
