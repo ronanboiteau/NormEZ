@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.2.2
-# Changelog: Fix auto-update system
+# NormEZ_v1.2.3
+# Changelog: Improved auto-update system
 
 class String
 
@@ -596,6 +596,7 @@ class UpdateManager
     if @current < @latest
       return true
     end
+    clean_update_files
     false
   end
 
