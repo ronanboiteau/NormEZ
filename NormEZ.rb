@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.2.1
-# Changelog: Added auto-update system
+# NormEZ_v1.2.2
+# Changelog: Fix auto-update system
 
 class String
 
@@ -575,7 +575,7 @@ class UpdateManager
   def initialize(script_path)
     path = File.dirname(script_path)
     @script_path = script_path
-    @remote = system("curl -s https://raw.githubusercontent.com/ronanboiteau/NormEZ/master/NormEZ.rb >> #{path}/remote")
+    @remote = system("curl -s https://raw.githubusercontent.com/ronanboiteau/NormEZ/master/NormEZ.rb > #{path}/remote")
     @remote_path = "#{path}/remote"
     @backup_path = "#{path}/backup"
   end
