@@ -13,8 +13,6 @@ Coding-style checker for Epitech students. This program analyzes your C source f
   * [How to use NormEZ?](#how-to-use-normez)
 * __[Options](#options)__
 * __[Features](#features)__
-  * [Known issues](#known-issues)
-  * [Known issues](#known-issues)
 * __[To-do](#to-do)__
 * __[Bugs](#bugs)__
   * [Known issues](#known-issues)
