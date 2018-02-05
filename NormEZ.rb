@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 # NormEZ_v1.2.0
-# Update: Added auto-update system
+# Changelog: Added auto-update system
 
 class String
 
@@ -601,7 +601,7 @@ class UpdateManager
 
   def update
     if @current < @latest
-      update_msg = %x(cat #{@remote_path} | grep 'Update: ' | cut -c 11- | head -1 | tr -d '.')
+      update_msg = %x(cat #{@remote_path} | grep 'Changelog: ' | cut -c 11- | head -1 | tr -d '.')
       print("A new version is available: NormEZ v#{@latest_disp}".bold.yellow)
       print(" => Changelog: ".bold)
       print("#{update_msg}".bold.blue)
