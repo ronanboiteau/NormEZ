@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.2
-# Update: Add update check in end of script
+# NormEZ_v1.2.0
+# Update: Added auto-update system
 
 class String
 
@@ -570,101 +570,77 @@ class CodingStyleChecker
 
 end
 
-class VersionManager
+class UpdateManager
 
   def initialize(script_path)
     path = File.dirname(script_path)
     @script_path = script_path
-    @remote = system "curl -s https://raw.githubusercontent.com/mrlizzard/NormEZ/master/NormEZ.rb >> #{path}/remote"
+    @remote = system("curl -s https://raw.githubusercontent.com/ronanboiteau/NormEZ/master/NormEZ.rb >> #{path}/remote")
     @remote_path = "#{path}/remote"
     @backup_path = "#{path}/backup"
   end
 
-  def get_versions
-    if !@remote
-      puts "Error while checking version... Skip...".red
-      system "rm -rf #{@remote_path}"
+  def clean_update_files
+    system("rm -rf #{@backup_path}")
+    system("rm -rf #{@remote_path}")
+  end
+
+  def can_update
+    if not @remote
+      clean_update_files
       return false
     end
-
     @current = %x(cat #{@script_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
     @latest = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
-    @latest_ver = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1)
-
+    @latest_disp = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1)
     if @current < @latest
       return true
     end
-
-    return false
+    false
   end
 
-  def check_latest
+  def update
     if @current < @latest
       update_msg = %x(cat #{@remote_path} | grep 'Update: ' | cut -c 11- | head -1 | tr -d '.')
-      
-      print "A new version available: NormEZ_v#{@latest_ver}".bold.yellow
-      print " => Update: ".bold
-      puts "#{update_msg}".bold.blue
-      print "Update script ? [Y/n]: "
-      response = gets.chomp
-
-      if response == "n" || response == "N"
-        puts "Update skiped. If you want to stay on this version whitout update, add the [--no-update, -nu] flag.".bold.blue
-        return "skiped"
-      elsif response == "Y" || response == "y" || response == ""
-        system "cat #{@script_path} > #{@backup_path}"
-        print "Download new version... Please wait...".bold.green
-
-        resp = system "cat #{@remote_path} > #{@script_path}"
-
-        if !resp
-          print "Error during updating... Rollback file.".bold.red
-          system "cat #{@backup_path} > #{@script_path}"
-          Kernel.exit(false)
-        end
-
-        system "rm -rf #{@backup_path}"
-        system "rm -rf #{@remote_path}"
-        print "Script updated !".bold.green
-
-        return true
-      else
-        puts "Unknown response. Retry with [Y/n]. Skip update.".bold.red
-        return "skiped"
+      print("A new version is available: NormEZ v#{@latest_disp}".bold.yellow)
+      print(" => Changelog: ".bold)
+      print("#{update_msg}".bold.blue)
+      response = nil
+      Kernel.loop do
+        print("Update NormEZ? [Y/n]: ")
+        response = gets.chomp
+        break if ["N", "n", "no", "Y", "y", "yes", ""].include?(response)
       end
+      if ["N", "n", "no"].include?(response)
+        puts("Update skipped. You can also use the --no-update (or -nu) option to prevent auto-updating.".bold.blue)
+        clean_update_files
+        return
+      end
+      puts("Downloading update...")
+      system("cat #{@script_path} > #{@backup_path}")
+      exit_code = system("cat #{@remote_path} > #{@script_path}")
+      if not exit_code
+        print("Error while updating! Cancelling...".bold.red)
+        system("cat #{@backup_path} > #{@script_path}")
+        clean_update_files
+        Kernel.exit(false)
+      end
+      clean_update_files
+      puts("NormEZ has been successfully updated!".bold.green)
     end
   end
 
 end
 
-## Main script
 
-updating = "default"
-
-if ARGV[0] != false && (ARGV[0] == "-nu" || ARGV[0] == "--no-update")
-  puts "Update skiped (flag \"#{ARGV[0]}\" called).".bold.blue
-else
-  version = VersionManager.new($0)
-
-  if version.get_versions
-    updating = version.check_latest
-
-    puts "\n"
+if ARGV[0] != false && (ARGV[0] != "-nu" && ARGV[0] != "--no-update")
+  updater = UpdateManager.new($0)
+  if updater.can_update
+    updater.update
   end
 end
 
 files_retriever = FilesRetriever.new
-
 while (next_file = files_retriever.get_next_file)
   CodingStyleChecker.new(next_file)
-end
-
-print "\n[UPDATE] ".bold.yellow
-
-if updating == true
-  puts "NormEZ script successfully updated !".green.bold
-elsif updating == false
-  puts "Error while script update. See above for more details.".bold.red
-elsif updating == "skiped"
-  puts "Update skiped.".bold.cyan
 end

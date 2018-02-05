@@ -11,6 +11,7 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 * __[Getting started](#getting-started)__
   * [Requirements](#requirements)
   * [How to use NormEZ?](#how-to-use-normez)
+* __[Options](#options)__
 * __[Features](#features)__
   * [Known issues](#known-issues)
   * [Known issues](#known-issues)
@@ -21,7 +22,7 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 * __[Getting involved](#getting-involved)__
   * [Share](#share)
   * [Contribute](#contribute)
-* __[Author](#author)__
+* __[Contributors](#contributors)__
 
 ## Getting started
 
@@ -47,6 +48,10 @@ git clone https://github.com/ronanboiteau/NormEZ
 ruby NormEZ.rb
 ```
  - NormEZ will recursively search for `.c` and `.h` files to analyze in your current directory.
+
+## Options
+
+ - `-nu` or `--no-update`: do not check for NormEZ updates
 
 ## Features
 
@@ -128,11 +133,13 @@ You want to add awesome features to NormEZ? Here's how:
  2. Commit & push a new feature to the forked repository
  3. Open a [pull request](https://github.com/ronanboiteau/NormEZ/pulls) so I can merge your work in this repository :)
 
-## Author
+## [Contributors]
 
-* **Ronan Boiteau** ([GitHub](https://github.com/ronanboiteau) / [LinkedIn](https://www.linkedin.com/in/ronanboiteau/))
+ - **Ronan Boiteau** ([GitHub](https://github.com/ronanboiteau) / [LinkedIn](https://www.linkedin.com/in/ronanboiteau/))
+ - **Cyril Colinet** ([GitHub](https://github.com/mrlizzard))
 
 <!-- Links -->
+[Contributors]: https://github.com/ronanboiteau/NormEZ/graphs/contributors
 [Epitech coding-style]: /epitech_c_coding_style.pdf
 [NormEZ]: https://github.com/ronanboiteau/NormEZ
 [snake_case]: https://en.wikipedia.org/wiki/Snake_case
