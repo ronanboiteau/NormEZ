@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# NormEZ_v1.2.0
+# NormEZ_v1.2.1
 # Changelog: Added auto-update system
 
 class String
