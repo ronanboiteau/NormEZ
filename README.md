@@ -106,6 +106,7 @@ Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ.
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Variable not declared at the beginning of function.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Missing empty line after variable declarations.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Extra empty lines in function.<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Identifier shouldn't be composed of only l or o.</br>
 
 ## Bugs
 
