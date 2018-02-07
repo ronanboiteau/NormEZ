@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# NormEZ_v1.3.0
+# NormEZ_v1.3.1
 # Changelog: Major fix in detection of line with too many columns
 
 class String
@@ -636,6 +636,7 @@ class UpdateManager
       end
       clean_update_files
       puts("NormEZ has been successfully updated!".bold.green)
+      Kernel.exit(true)
     end
   end
 
