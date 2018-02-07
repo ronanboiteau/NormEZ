@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.2.3
-# Changelog: Improved auto-update system
+# NormEZ_v1.3.0
+# Changelog: Major fix in detection of line with too many columns
 
 class String
 
@@ -201,9 +201,17 @@ class CodingStyleChecker
   def check_too_many_columns
     line_nb = 1
     @file.each_line do |line|
-      if line.length - 1 > 80
+      length = 0
+      line.each_char do |char|
+        if char == "\t"
+          length += 8
+        else
+          length += 1
+        end
+      end
+      if length - 1 > 80
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Too many columns (" + (line.length - 1).to_s + " > 80)."
+        msg_error = " Too many columns (" + (length - 1).to_s + " > 80)."
         puts(msg_brackets.bold.red + msg_error.bold)
       end
       line_nb += 1
