@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.3.1
-# Changelog: Major fix in detection of line with too many columns
+# NormEZ_v1.3.2
+# Changelog: Minifix for Matchstick, preventing "Misplaced space(s) around '|' sign." false-positives
 
 class String
 
@@ -530,7 +530,10 @@ class CodingStyleChecker
         put_error_sign("|=", line_nb)
       end
       line.scan(/([^\t |]\|[^|]|[^|]\|[^ =|\n])/) do
-        put_error_sign("|", line_nb)
+        # Minifix for Matchstick
+        line.scan(/([^']\|[^'])/) do
+          put_error_sign("|", line_nb)
+        end
       end
       line.scan(/([^\t ]\^|\^[^ =\n])/) do
         put_error_sign("^", line_nb)
@@ -557,7 +560,7 @@ class CodingStyleChecker
       line.scan(/([^a-zA-Z]\+\+[^a-zA-Z])/) do
         put_error_sign("++", line_nb)
       end
-        line.scan(/([^a-zA-Z]--[^a-zA-Z])/) do
+      line.scan(/([^a-zA-Z]--[^a-zA-Z])/) do
         put_error_sign("--", line_nb)
       end
       line_nb += 1
