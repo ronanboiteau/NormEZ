@@ -227,7 +227,7 @@ class CodingStyleChecker
   end
 
   def check_header
-    if @file !~ /\/\*\n\*\* EPITECH PROJECT, [0-9]{4}\n\*\* .*\n\*\* File description:\n\*\* .*\n\*\/\n.*/
+    if @file !~ /\/\*\n\*\* EPITECH PROJECT, [0-9]{4}\n\*\* .*\n\*\* File description:\n(\*\* .*\n)+\*\/\n.*/
       msg_brackets = "[" + @file_path + "]"
       msg_error = " Missing or corrupted header."
       puts(msg_brackets.bold.red + msg_error.bold)
