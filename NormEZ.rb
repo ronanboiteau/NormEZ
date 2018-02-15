@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.3.2
-# Changelog: Minifix for Matchstick, preventing "Misplaced space(s) around '|' sign." false-positives
+# NormEZ_v1.3.3
+# Changelog: Added support for multiline file descriptions in Epitech headers.
 
 class String
 
