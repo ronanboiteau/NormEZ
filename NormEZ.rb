@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.3.3
-# Changelog: Added support for multiline file descriptions in Epitech headers.
+# NormEZ_v1.3.4
+# Changelog: Fix false-positives on commas before EOL.
 
 class String
 
@@ -465,7 +465,7 @@ class CodingStyleChecker
   def check_comma_missing_space
     line_nb = 1
     @file.each_line do |line|
-      line.scan(/,[^ ]/) do
+      line.scan(/,[^ \n]/) do
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Missing space after comma."
         puts(msg_brackets.bold.green + msg_error.bold)
