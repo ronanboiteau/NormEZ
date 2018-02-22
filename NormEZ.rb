@@ -2,6 +2,10 @@
 # NormEZ_v1.3.5
 # Changelog: Fix false-positives on comments inside function.
 
+require 'optparse'
+
+$options = {}
+
 class String
 
   def each_char
@@ -141,9 +145,11 @@ class CodingStyleChecker
 
   def check_file
     if @type == FileType::UNKNOWN
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " This is probably a forbidden file. You might not want to commit it."
-      puts(msg_brackets.bold.red + msg_error.bold)
+      if !($options.include? :ignorefiles)
+        msg_brackets = "[" + @file_path + "]"
+        msg_error = " This is probably a forbidden file. You might not want to commit it."
+        puts(msg_brackets.bold.red + msg_error.bold)
+      end
       return
     end
     if @type == FileType::DIRECTORY
@@ -283,11 +289,13 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       line.scan(/(^|[^0-9a-zA-Z_])(printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/) do
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Are you sure that this function is allowed: '".bold
-        msg_error += $2.bold.red
-        msg_error += "'?".bold
-        puts(msg_brackets.bold.red + msg_error)
+        if !($options.include? :ignorefunctions)
+          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+          msg_error = " Are you sure that this function is allowed: '".bold
+          msg_error += $2.bold.red
+          msg_error += "'?".bold
+          puts(msg_brackets.bold.red + msg_error)
+        end
       end
       line.scan(/(^|[^0-9a-zA-Z_])(goto)[^0-9a-zA-Z]/) do
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
@@ -621,7 +629,7 @@ class UpdateManager
         break if ["N", "n", "no", "Y", "y", "yes", ""].include?(response)
       end
       if ["N", "n", "no"].include?(response)
-        puts("Update skipped. You can also use the --no-update (or -nu) option to prevent auto-updating.".bold.blue)
+        puts("Update skipped. You can also use the --no-update (or -u) option to prevent auto-updating.".bold.blue)
         clean_update_files
         return
       end
@@ -642,8 +650,25 @@ class UpdateManager
 
 end
 
+OptionParser.new do |opts|
+  opts.banner = "Usage: " + $0 + " [-ufmi]"
 
-if ARGV[0] != false && (ARGV[0] != "-nu" && ARGV[0] != "--no-update")
+  opts.on("-u", "--no-update", "Don't check for update") do |o|
+    $options[:noupdate] = o
+  end
+  opts.on("-f", "--ignore-files", "Ignore forbidden files") do |o|
+    $options[:ignorefiles] = o
+  end
+  opts.on("-m", "--ignore-functions", "Ignore forbidden functions") do |o|
+    $options[:ignorefunctions] = o
+  end
+  opts.on("-i", "--ignore-all", "Same as -fm") do |o|
+    $options[:ignorefiles] = o
+    $options[:ignorefunctions] = o
+  end
+end.parse!
+
+if !($options.include? :noupdate)
   updater = UpdateManager.new($0)
   if updater.can_update
     updater.update
