@@ -448,11 +448,8 @@ class CodingStyleChecker
     level = 0
     line_nb = 1
     @file.each_line do |line|
-      if line =~ /{[ \t]*$/
-        level += 1
-      elsif line =~ /^[ \t]*}[ \t]*$/
-        level -= 1
-      end
+      level += line.count "{"
+      level -= line.count "}"
       if level != 0 and (line =~ /\/\*/ or line =~ /\/\//)
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
         msg_error = " Misplaced comment."
