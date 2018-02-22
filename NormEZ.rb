@@ -452,8 +452,7 @@ class CodingStyleChecker
       level -= line.count "}"
       if level != 0 and (line =~ /\/\*/ or line =~ /\/\//)
         msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Misplaced 
-."
+        msg_error = " Misplaced comment."
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
