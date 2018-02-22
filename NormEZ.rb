@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.3.4
-# Changelog: Fix false-positives on commas before EOL.
+# NormEZ_v1.3.5
+# Changelog: Fix false-positives on comments inside function.
 
 class String
 
