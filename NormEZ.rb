@@ -1,10 +1,8 @@
 #!/usr/bin/ruby
-# NormEZ_v1.3.6
-# Changelog: Fix false-positives on wrong spacing around ++ and -- operators.
+# NormEZ_v1.4.0
+# Changelog: Added options to ignore forbidden files (-f) & forbidden functions (-m) or both (-i) / -nu option is now -u
 
 require 'optparse'
-
-$options = {}
 
 class String
 
@@ -650,10 +648,10 @@ class UpdateManager
 
 end
 
-OptionParser.new do |opts|
-  opts.banner = "Usage: " + $0 + " [-ufmi]"
-
-  opts.on("-u", "--no-update", "Don't check for update") do |o|
+$options = {}
+opt_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: `ruby " + $0 + " [-ufmi]`"
+  opts.on("-u", "--no-update", "Don't check for updates") do |o|
     $options[:noupdate] = o
   end
   opts.on("-f", "--ignore-files", "Ignore forbidden files") do |o|
@@ -662,13 +660,21 @@ OptionParser.new do |opts|
   opts.on("-m", "--ignore-functions", "Ignore forbidden functions") do |o|
     $options[:ignorefunctions] = o
   end
-  opts.on("-i", "--ignore-all", "Same as -fm") do |o|
+  opts.on("-i", "--ignore-all", "Ignore forbidden files & forbidden functions (same as `-fm`)") do |o|
     $options[:ignorefiles] = o
     $options[:ignorefunctions] = o
   end
-end.parse!
+end
 
-if !($options.include? :noupdate)
+begin
+  opt_parser.parse!
+rescue OptionParser::InvalidOption => e
+  puts("Error: " + e.to_s)
+  puts(opt_parser.banner)
+  Kernel.exit(false)
+end
+  
+if !($options.include?(:noupdate))
   updater = UpdateManager.new($0)
   if updater.can_update
     updater.update

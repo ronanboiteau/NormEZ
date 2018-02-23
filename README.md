@@ -49,7 +49,10 @@ ruby NormEZ.rb
 
 ## Options
 
- - `-nu` or `--no-update`: do not check for NormEZ updates
+ - `-u` or `--no-update`: don't check for NormEZ updates
+ - `-f` or `--ignore-files`: ignore forbidden files
+ - `-m` or `--ignore-functions`: ignore forbidden functions
+ - `-i` or `--ignore-all`: ignore forbidden files & forbidden functions (same as `-fm`)
 
 ## Features
 
