@@ -20,7 +20,7 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 * __[Getting involved](#getting-involved)__
   * [Share](#share)
   * [Contribute](#contribute)
-* __[Contributors](#contributors)__
+  * [Contributors](#contributors)
 
 ## Getting started
 
@@ -132,13 +132,11 @@ You want to add awesome features to NormEZ? Here's how:
  2. Commit & push a new feature to the forked repository
  3. Open a [pull request](https://github.com/ronanboiteau/NormEZ/pulls) so I can merge your work in this repository :)
 
-## [Contributors]
+### Contributors
 
- - **Ronan Boiteau** ([GitHub](https://github.com/ronanboiteau) / [LinkedIn](https://www.linkedin.com/in/ronanboiteau/))
- - **Cyril Colinet** ([GitHub](https://github.com/mrlizzard))
+[Here](https://github.com/ronanboiteau/NormEZ/graphs/contributors) is the list of NormEZ's contributors. Thanks to everyone who helped developing this project!
 
 <!-- Links -->
-[Contributors]: https://github.com/ronanboiteau/NormEZ/graphs/contributors
 [Epitech coding-style]: /epitech_c_coding_style.pdf
 [NormEZ]: https://github.com/ronanboiteau/NormEZ
 [snake_case]: https://en.wikipedia.org/wiki/Snake_case
