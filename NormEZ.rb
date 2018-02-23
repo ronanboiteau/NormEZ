@@ -554,10 +554,10 @@ class CodingStyleChecker
       line.scan(/([^a-zA-Z0-9]sizeof )/) do
         put_error_sign("sizeof", line_nb)
       end
-      line.scan(/([^a-zA-Z]\+\+[^a-zA-Z])/) do
+      line.scan(/([^a-zA-Z\t ]\+\+[^a-zA-Z])/) do
         put_error_sign("++", line_nb)
       end
-      line.scan(/([^a-zA-Z]--[^a-zA-Z])/) do
+      line.scan(/([^a-zA-Z\t ]--[^a-zA-Z])/) do
         put_error_sign("--", line_nb)
       end
       line_nb += 1
