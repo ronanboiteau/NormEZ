@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.4.0
-# Changelog: Added options to ignore forbidden files (-f) & forbidden functions (-m) or both (-i) / -nu option is now -u
+# NormEZ_v1.4.1
+# Changelog: Fix false-positives on "Misplaced spaces around ++/-- operator"
 
 require 'optparse'
 
@@ -560,10 +560,10 @@ class CodingStyleChecker
       line.scan(/([^a-zA-Z0-9]sizeof )/) do
         put_error_sign("sizeof", line_nb)
       end
-      line.scan(/([^a-zA-Z)]\+\+[^(*a-zA-Z])/) do
+      line.scan(/([^a-zA-Z)\]]\+\+[^(\[*a-zA-Z])/) do
         put_error_sign("++", line_nb)
       end
-      line.scan(/([^a-zA-Z)]--[^(*a-zA-Z])/) do
+      line.scan(/([^a-zA-Z)\]]--[^\[(*a-zA-Z])/) do
         put_error_sign("--", line_nb)
       end
       line_nb += 1
