@@ -11,6 +11,7 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 * __[Getting started](#getting-started)__
   * [Arch Linux](#arch-linux)
   * [Requirements](#requirements)
+  * [Installing NormEZ](#installing-normez)
   * [How to use NormEZ?](#how-to-use-normez)
 * __[Options](#options)__
 * __[Features](#features)__
@@ -25,25 +26,29 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 
 ## Getting started
 
-### Arch Linux
+### Requirements
 
-- Install NormEZ:
+ - [Ruby](https://www.ruby-lang.org/en/)
+
+### Installing NormEZ
+
+#### Fedora (Epitech's dump 2017)
+
+```
+sudo dnf install ruby
+```
+
+#### Arch Linux
+
+Maintained by [Florian Glorioz](https://github.com/Hapique).
+
+- Installing NormEZ:
 ```
 yaourt -S normez
 ```
 - Run NormEZ:
 ```
 normez
-```
-
-### Requirements
-
- - [Ruby](https://www.ruby-lang.org/en/)
-
-#### Installing Ruby on Fedora (Epitech's dump 2017)
-
-```
-sudo dnf install ruby
 ```
 
 ### How to use NormEZ?
