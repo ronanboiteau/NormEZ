@@ -9,6 +9,7 @@ Coding-style checker for Epitech students. This program analyzes your C source f
 ## Table of contents
 
 * __[Getting started](#getting-started)__
+  * [Arch Linux](#arch-linux)
   * [Requirements](#requirements)
   * [How to use NormEZ?](#how-to-use-normez)
 * __[Options](#options)__
@@ -23,6 +24,17 @@ Coding-style checker for Epitech students. This program analyzes your C source f
   * [Contributors](#contributors)
 
 ## Getting started
+
+### Arch Linux
+
+- Install NormEZ:
+```
+yaourt -S normez
+```
+- Run NormEZ:
+```
+normez
+```
 
 ### Requirements
 
