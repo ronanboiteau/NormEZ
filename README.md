@@ -53,7 +53,7 @@ ruby NormEZ.rb
 
 #### Arch Linux
 
-AUR package maintained by [Florian Glorioz](https://github.com/Hapique).
+[AUR package](https://aur.archlinux.org/packages/normez/) maintained by [Florian Glorioz](https://github.com/Hapique).
 
  1. Install NormEZ:
 ```
