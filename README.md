@@ -40,26 +40,26 @@ sudo dnf install ruby
 
 #### Manual installation
 
- - Clone the repository:
+ 1. Clone the repository:
 ```
 git clone https://github.com/ronanboiteau/NormEZ
 ```
- - Copy the `NormEZ.rb` executable in your project repository.
- - Run NormEZ:
+ 2. Copy the `NormEZ.rb` executable in your project repository.
+ 3. Run NormEZ:
 ```
 ruby NormEZ.rb
 ```
- - NormEZ will recursively search for `.c` and `.h` files to analyze in your current directory.
+ 4. NormEZ will recursively search for `.c` and `.h` files to analyze in your current directory.
 
 #### Arch Linux
 
 AUR package maintained by [Florian Glorioz](https://github.com/Hapique).
 
-- Installing NormEZ:
+ 1. Install NormEZ:
 ```
 yaourt -S normez
 ```
-- Run NormEZ:
+ 2. Run NormEZ with the following command:
 ```
 normez
 ```
