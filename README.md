@@ -103,6 +103,7 @@ Here are the [Epitech coding-style] violations checked by NormEZ.
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Missing space around binary or ternary operator (`=`, `==`, `!=`, `<=`, `>=`, `&&`, `||`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `|`, `^`, `>>`, `<<`, `>>=`, `<<=`).<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Extra space after unary operators (`!`, `sizeof`, `++`, `--`).<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Forbidden keyword (`goto`).<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Functions must be separated by *one and only one* empty line in `.c` files.<br/>
 
 ## To-do
 
@@ -120,7 +121,6 @@ Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ.
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Header files not protected against double inclusion<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Wrong indentation level in `.c` and `.h` files.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Wrong indentation level in pre-processor directives.<br/>
-<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Functions must be separated by *one and only one* empty line in `.c` files.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Extra space between function name and opening parenthesis.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Misplaced curly brackets.<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> Multiple variables declared on the same line.<br/>

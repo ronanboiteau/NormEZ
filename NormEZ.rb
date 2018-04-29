@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.4.1
-# Changelog: Fix false-positives on "Misplaced spaces around ++/-- operator"
+# NormEZ_v1.4.2
+# Changelog: New rule checked: "Functions must be separated by one and only one empty line in .c files"
 
 require 'optparse'
 
@@ -175,6 +175,7 @@ class CodingStyleChecker
       if @type == FileType::SOURCE
         check_functions_per_file
         check_function_lines
+        check_empty_line_between_functions
       end
       if @type == FileType::HEADER
         check_macro_used_as_constant
@@ -582,6 +583,19 @@ class CodingStyleChecker
     end
   end
 
+def check_empty_line_between_functions
+    @file.scan(/\n{3,}^[^ \n\t]+ [^ \n\t]+\([^\n\t]*\)/).each do |match|
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Too many empty lines between functions."
+      puts(msg_brackets.bold.green + msg_error.bold)
+    end
+    @file.scan(/[^\n]\n^[^ \n\t]+ [^ \n\t]+\([^\n\t]*\)/).each do |match|
+      msg_brackets = "[" + @file_path + "]"
+      msg_error = " Missing empty line between functions."
+      puts(msg_brackets.bold.green + msg_error.bold)
+    end
+end
+  
 end
 
 class UpdateManager
