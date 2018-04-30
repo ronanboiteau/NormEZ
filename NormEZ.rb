@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.4.2
-# Changelog: New rule checked: "Functions must be separated by one and only one empty line in .c files"
+# NormEZ_v1.5.0
+# Changelog: Override check of files contained in .gitignore file
 
 require 'optparse'
 
@@ -76,21 +76,19 @@ class FileManager
   def initialize(path, type)
     @path = path
     @type = type
-    if @type == FileType::UNKNOWN
-      @type = get_file_type
-    end
+    @type = get_file_type if @type == FileType::UNKNOWN
   end
 
   def get_file_type
-    if @path =~ /Makefile$/
-      @type = FileType::MAKEFILE
-    elsif @path =~ /[.]h$/
-      @type = FileType::HEADER
-    elsif @path =~ /[.]c$/
-      @type = FileType::SOURCE
-    else
-      @type = FileType::UNKNOWN
-    end
+    @type = if @path =~ /Makefile$/
+          FileType::MAKEFILE
+        elsif @path =~ /[.]h$/
+          FileType::HEADER
+        elsif @path =~ /[.]c$/
+          FileType::SOURCE
+        else
+          FileType::UNKNOWN
+        end
   end
 
   def get_content
@@ -100,31 +98,63 @@ class FileManager
     content
   end
 
+  def get_path
+    return @path
+  end
+
 end
 
 class FilesRetriever
 
+  @@ignore = nil
+
   def initialize
-    @files = Dir['**/*'].select{ |f| File.file? f }
+    @files = Dir['**/*'].select { |f| File.file? f }
+    if File.file?(".gitignore")
+      line_num = 0
+      gitignore = FileManager.new(".gitignore", FileType::UNKNOWN).get_content
+      gitignore.gsub!(/\r\n?/, "\n")
+      @@ignore = []
+      gitignore.each_line do |line|
+        if !line.start_with?('#') && line !~ /^\s*$/
+          @@ignore.push(line.chomp)
+        end
+      end
+    end
     @nb_files = @files.size
     @idx_files = 0
 
-    @dirs = Dir['**/*'].select{ |d| File.directory? d }
+    @dirs = Dir['**/*'].select { |d| File.directory? d }
     @nb_dirs = @dirs.size
     @idx_dirs = 0
+  end
+
+  def is_ignored_file(file)
+    @@ignore.each do |ignored_file|
+      if file.include?(ignored_file) || file.include?(ignored_file.tr('*', ''))
+        return true
+      end
+    end
+    return false
   end
 
   def get_next_file
     if @idx_files < @nb_files
       file = FileManager.new(@files[@idx_files], FileType::UNKNOWN)
       @idx_files += 1
+      if @@ignore != nil and is_ignored_file(file.get_path)
+        file = get_next_file
+      end
       return file
     elsif @idx_dirs < @nb_dirs
       file = FileManager.new(@dirs[@idx_dirs], FileType::DIRECTORY)
       @idx_dirs += 1
+      if @@ignore != nil and is_ignored_file(file.get_path)
+        file = get_next_file
+      end
       return file
     end
-    nil
+    return nil
   end
 
 end
@@ -135,7 +165,7 @@ class CodingStyleChecker
     @file_path = file_manager.path
     @type = file_manager.type
     @file = nil
-    if @type != FileType::UNKNOWN and @type != FileType::DIRECTORY
+    if (@type != FileType::UNKNOWN) && (@type != FileType::DIRECTORY)
       @file = file_manager.get_content
     end
     check_file
@@ -143,9 +173,9 @@ class CodingStyleChecker
 
   def check_file
     if @type == FileType::UNKNOWN
-      if !($options.include? :ignorefiles)
-        msg_brackets = "[" + @file_path + "]"
-        msg_error = " This is probably a forbidden file. You might not want to commit it."
+      unless $options.include? :ignorefiles
+        msg_brackets = '[' + @file_path + ']'
+        msg_error = ' This is probably a forbidden file. You might not want to commit it.'
         puts(msg_brackets.bold.red + msg_error.bold)
       end
       return
@@ -177,9 +207,7 @@ class CodingStyleChecker
         check_function_lines
         check_empty_line_between_functions
       end
-      if @type == FileType::HEADER
-        check_macro_used_as_constant
-      end
+      check_macro_used_as_constant if @type == FileType::HEADER
     elsif @type == FileType::MAKEFILE
       check_header_makefile
     end
@@ -188,8 +216,8 @@ class CodingStyleChecker
   def check_dirname
     filename = File.basename(@file_path)
     if filename !~ /^[a-z0-9]+([a-z0-9_]+[a-z0-9]+)*$/
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " Directory names should respect the snake_case naming convention."
+      msg_brackets = '[' + @file_path + ']'
+      msg_error = ' Directory names should respect the snake_case naming convention.'
       puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
@@ -197,8 +225,8 @@ class CodingStyleChecker
   def check_filename
     filename = File.basename(@file_path)
     if filename !~ /^[a-z0-9]+([a-z0-9_]+[a-z0-9]+)*[.][ch]$/
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " Filenames should respect the snake_case naming convention."
+      msg_brackets = '[' + @file_path + ']'
+      msg_error = ' Filenames should respect the snake_case naming convention.'
       puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
@@ -208,15 +236,15 @@ class CodingStyleChecker
     @file.each_line do |line|
       length = 0
       line.each_char do |char|
-        if char == "\t"
-          length += 8
-        else
-          length += 1
-        end
+        length += if char == "\t"
+                8
+              else
+                1
+              end
       end
       if length - 1 > 80
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Too many columns (" + (length - 1).to_s + " > 80)."
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Too many columns (' + (length - 1).to_s + ' > 80).'
         puts(msg_brackets.bold.red + msg_error.bold)
       end
       line_nb += 1
@@ -225,16 +253,16 @@ class CodingStyleChecker
 
   def check_too_broad_filename
     if @file_path =~ /(.*\/|^)(string.c|str.c|my_string.c|my_str.c|algorithm.c|my_algorithm.c|algo.c|my_algo.c|program.c|my_program.c|prog.c|my_prog.c)$/
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " Too broad filename. You should rename this file."
+      msg_brackets = '[' + @file_path + ']'
+      msg_error = ' Too broad filename. You should rename this file.'
       puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
 
   def check_header
     if @file !~ /\/\*\n\*\* EPITECH PROJECT, [0-9]{4}\n\*\* .*\n\*\* File description:\n(\*\* .*\n)+\*\/\n.*/
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " Missing or corrupted header."
+      msg_brackets = '[' + @file_path + ']'
+      msg_error = ' Missing or corrupted header.'
       puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
@@ -251,9 +279,9 @@ class CodingStyleChecker
         level += 1
       elsif line =~ /^[ \t]*}[ \t]*$/
         level -= 1
-        if level == 0 and count > 20
-          msg_brackets = "[" + @file_path + ":" + function_start.to_s + "]"
-          msg_error = " Function contains more than 20 lines (" + count.to_s + " > 20)."
+        if (level == 0) && (count > 20)
+          msg_brackets = '[' + @file_path + ':' + function_start.to_s + ']'
+          msg_error = ' Function contains more than 20 lines (' + count.to_s + ' > 20).'
           puts(msg_brackets.bold.red + msg_error.bold)
         end
       end
@@ -271,13 +299,11 @@ class CodingStyleChecker
       end
       assignments = 0
       line.each_char do |char|
-        if char == ";"
-          assignments += 1
-        end
+        assignments += 1 if char == ';'
       end
       if assignments > 1
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Several assignments on the same line."
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Several assignments on the same line.'
         puts(msg_brackets.bold.red + msg_error.bold)
       end
       line_nb += 1
@@ -288,18 +314,18 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       line.scan(/(^|[^0-9a-zA-Z_])(printf|dprintf|fprintf|vprintf|sprintf|snprintf|vprintf|vfprintf|vsprintf|vsnprintf|asprintf|scranf|memcpy|memset|memmove|strcat|strchar|strcpy|atoi|strlen|strstr|strncat|strncpy|strcasestr|strncasestr|strcmp|strncmp|strtok|strnlen|strdup|realloc)[^0-9a-zA-Z]/) do
-        if !($options.include? :ignorefunctions)
-          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        unless $options.include? :ignorefunctions
+          msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
           msg_error = " Are you sure that this function is allowed: '".bold
-          msg_error += $2.bold.red
+          msg_error += Regexp.last_match(2).bold.red
           msg_error += "'?".bold
           puts(msg_brackets.bold.red + msg_error)
         end
       end
       line.scan(/(^|[^0-9a-zA-Z_])(goto)[^0-9a-zA-Z]/) do
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
         msg_error = " Are you sure that this keyword is allowed: '".bold
-        msg_error += $2.bold.red
+        msg_error += Regexp.last_match(2).bold.red
         msg_error += "'?".bold
         puts(msg_brackets.bold.red + msg_error)
       end
@@ -311,17 +337,15 @@ class CodingStyleChecker
     line_nb = condition_start = 1
     count = 0
     @file.each_line do |line|
-      while ([" ", "\t"]).include?(line[0])
-        line[0] = ''
-      end
+      line[0] = '' while [' ', "\t"].include?(line[0])
       if line =~ /^if ?\(/
         condition_start = line_nb
         count = 1
-      elsif line =~ /^else if ?\(/ or line =~ /^else ?\(/
+      elsif line =~ /^else if ?\(/ || line =~ /^else ?\(/
         count += 1
         if count > 3
-          msg_brackets = "[" + @file_path + ":" + condition_start.to_s + "]"
-          msg_error = " Too many \"else if\" statements."
+          msg_brackets = '[' + @file_path + ':' + condition_start.to_s + ']'
+          msg_error = ' Too many "else if" statements.'
           puts(msg_brackets.bold.green + msg_error.bold)
         end
       end
@@ -333,12 +357,12 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       if line =~ / $/
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Trailing space(s) at the end of the line."
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Trailing space(s) at the end of the line.'
         puts(msg_brackets.bold.green + msg_error.bold)
       elsif line =~ /\t$/
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Trailing tabulation(s) at the end of the line."
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Trailing tabulation(s) at the end of the line.'
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
@@ -350,12 +374,12 @@ class CodingStyleChecker
     @file.each_line do |line|
       indent = 0
       while line[0] == "\t"
-        line[0] = ""
+        line[0] = ''
         indent += 1
       end
-      if line[0] == " "
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Wrong indentation: spaces are not allowed."
+      if line[0] == ' '
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Wrong indentation: spaces are not allowed.'
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
@@ -365,13 +389,11 @@ class CodingStyleChecker
   def check_functions_per_file
     functions = 0
     @file.each_line do |line|
-      if line =~ /^{/
-        functions += 1
-      end
+      functions += 1 if line =~ /^{/
     end
     if functions > 5
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " More than 5 functions in the same file (" + functions.to_s + " > 5)."
+      msg_brackets = '[' + @file_path + ']'
+      msg_error = ' More than 5 functions in the same file (' + functions.to_s + ' > 5).'
       puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
@@ -382,14 +404,14 @@ class CodingStyleChecker
     @file.each_line do |line|
       if missing_bracket
         if line =~ /^{$/
-          msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+          msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
           msg_error = " This function takes no parameter, it should take 'void' as argument."
           puts(msg_brackets.bold.red + msg_error.bold)
         elsif line !~ /^[\t ]*$/
           missing_bracket = false
         end
       elsif line =~ /\(\)[\t ]*{$/
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
         msg_error = " This function takes no parameter, it should take 'void' as argument."
         puts(msg_brackets.bold.red + msg_error.bold)
       elsif line =~ /\(\)[ \t]*$/
@@ -400,8 +422,8 @@ class CodingStyleChecker
   end
 
   def check_too_many_parameters
-    @file.scan(/\(([^(),]*,){4,}[^()]*\)[ \t\n]+{/).each do |match|
-      msg_brackets = "[" + @file_path + "]"
+    @file.scan(/\(([^(),]*,){4,}[^()]*\)[ \t\n]+{/).each do |_match|
+      msg_brackets = '[' + @file_path + ']'
       msg_error = " Function shouldn't take more than 4 arguments."
       puts(msg_brackets.bold.red + msg_error.bold)
     end
@@ -411,7 +433,7 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       line.scan(/(return|if|else if|else|while|for)\(/) do |match|
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
         msg_error = " Missing space after keyword '" + match[0] + "'."
         puts(msg_brackets.bold.green + msg_error.bold)
       end
@@ -423,7 +445,7 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       line.scan(/([^(\t ]+_t|int|signed|unsigned|char|long|short|float|double|void|const|struct [^ ]+)\*/) do |match|
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
         msg_error = " Misplaced pointer symbol after '" + match[0] + "'."
         puts(msg_brackets.bold.green + msg_error.bold)
       end
@@ -434,9 +456,9 @@ class CodingStyleChecker
   def check_macro_used_as_constant
     line_nb = 1
     @file.each_line do |line|
-      if line =~ (/#define [^ ]+ [0-9]+([.][0-9]+)?/)
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Macros should not be used for constants."
+      if line =~ /#define [^ ]+ [0-9]+([.][0-9]+)?/
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Macros should not be used for constants.'
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
@@ -445,8 +467,8 @@ class CodingStyleChecker
 
   def check_header_makefile
     if @file !~ /##\n## EPITECH PROJECT, [0-9]{4}\n## .*\n## File description:\n## .*\n##\n.*/
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " Missing or corrupted header."
+      msg_brackets = '[' + @file_path + ']'
+      msg_error = ' Missing or corrupted header.'
       puts(msg_brackets.bold.red + msg_error.bold)
     end
   end
@@ -455,11 +477,11 @@ class CodingStyleChecker
     level = 0
     line_nb = 1
     @file.each_line do |line|
-      level += line.count "{"
-      level -= line.count "}"
-      if level != 0 and (line =~ /\/\*/ or line =~ /\/\//)
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Comment inside a function."
+      level += line.count '{'
+      level -= line.count '}'
+      if (level != 0) && (line =~ /\/\*/ || line =~ /\/\//)
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Comment inside a function.'
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
@@ -470,8 +492,8 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       line.scan(/,[^ \n]/) do
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Missing space after comma."
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Missing space after comma.'
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
@@ -479,7 +501,7 @@ class CodingStyleChecker
   end
 
   def put_error_sign(sign, line_nb)
-    msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
+    msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
     msg_error = " Misplaced space(s) around '" + sign + "' sign."
     puts(msg_brackets.bold.green + msg_error.bold)
   end
@@ -489,83 +511,83 @@ class CodingStyleChecker
     @file.each_line do |line|
       # A space on both ends
       line.scan(/([^\t&|=^><+\-*%\/! ]=[^=]|[^&|=^><+\-*%\/!]=[^= \n])/) do
-        put_error_sign("=", line_nb)
+        put_error_sign('=', line_nb)
       end
       line.scan(/([^\t ]==|==[^ \n])/) do
-        put_error_sign("==", line_nb)
+        put_error_sign('==', line_nb)
       end
       line.scan(/([^\t ]!=|!=[^ \n])/) do
-        put_error_sign("!=", line_nb)
+        put_error_sign('!=', line_nb)
       end
       line.scan(/([^\t <]<=|[^<]<=[^ \n])/) do
-        put_error_sign("<=", line_nb)
+        put_error_sign('<=', line_nb)
       end
       line.scan(/([^\t >]>=|[^>]>=[^ \n])/) do
-        put_error_sign(">=", line_nb)
+        put_error_sign('>=', line_nb)
       end
       line.scan(/([^\t ]&&|&&[^ \n])/) do
-        put_error_sign("&&", line_nb)
+        put_error_sign('&&', line_nb)
       end
       line.scan(/([^\t ]\|\||\|\|[^ \n])/) do
-        put_error_sign("||", line_nb)
+        put_error_sign('||', line_nb)
       end
       line.scan(/([^\t ]\+=|\+=[^ \n])/) do
-        put_error_sign("+=", line_nb)
+        put_error_sign('+=', line_nb)
       end
       line.scan(/([^\t ]-=|-=[^ \n])/) do
-        put_error_sign("-=", line_nb)
+        put_error_sign('-=', line_nb)
       end
       line.scan(/([^\t ]\*=|\*=[^ \n])/) do
-        put_error_sign("*=", line_nb)
+        put_error_sign('*=', line_nb)
       end
       line.scan(/([^\t ]\/=|\/=[^ \n])/) do
-        put_error_sign("/=", line_nb)
+        put_error_sign('/=', line_nb)
       end
       line.scan(/([^\t ]%=|%=[^ \n])/) do
-        put_error_sign("%=", line_nb)
+        put_error_sign('%=', line_nb)
       end
       line.scan(/([^\t ]&=|&=[^ \n])/) do
-        put_error_sign("&=", line_nb)
+        put_error_sign('&=', line_nb)
       end
       line.scan(/([^\t ]\^=|\^=[^ \n])/) do
-        put_error_sign("^=", line_nb)
+        put_error_sign('^=', line_nb)
       end
       line.scan(/([^\t ]\|=|\|=[^ \n])/) do
-        put_error_sign("|=", line_nb)
+        put_error_sign('|=', line_nb)
       end
       line.scan(/([^\t |]\|[^|]|[^|]\|[^ =|\n])/) do
         # Minifix for Matchstick
         line.scan(/([^']\|[^'])/) do
-          put_error_sign("|", line_nb)
+          put_error_sign('|', line_nb)
         end
       end
       line.scan(/([^\t ]\^|\^[^ =\n])/) do
-        put_error_sign("^", line_nb)
+        put_error_sign('^', line_nb)
       end
       line.scan(/([^\t ]>>[^=]|>>[^ =\n])/) do
-        put_error_sign(">>", line_nb)
+        put_error_sign('>>', line_nb)
       end
       line.scan(/([^\t ]<<[^=]|<<[^ =\n])/) do
-        put_error_sign("<<", line_nb)
+        put_error_sign('<<', line_nb)
       end
       line.scan(/([^\t ]>>=|>>=[^ \n])/) do
-        put_error_sign(">>=", line_nb)
+        put_error_sign('>>=', line_nb)
       end
       line.scan(/([^\t ]<<=|<<=[^ \n])/) do
-        put_error_sign("<<=", line_nb)
+        put_error_sign('<<=', line_nb)
       end
       # No space after
       line.scan(/([^!]! )/) do
-        put_error_sign("!", line_nb)
+        put_error_sign('!', line_nb)
       end
       line.scan(/([^a-zA-Z0-9]sizeof )/) do
-        put_error_sign("sizeof", line_nb)
+        put_error_sign('sizeof', line_nb)
       end
       line.scan(/([^a-zA-Z)\]]\+\+[^(\[*a-zA-Z])/) do
-        put_error_sign("++", line_nb)
+        put_error_sign('++', line_nb)
       end
       line.scan(/([^a-zA-Z)\]]--[^\[(*a-zA-Z])/) do
-        put_error_sign("--", line_nb)
+        put_error_sign('--', line_nb)
       end
       line_nb += 1
     end
@@ -575,27 +597,27 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       line.scan(/(if.*[^&|=^><+\-*%\/!]=[^=].*==.*)|(if.*==.*[^&|=^><+\-*%\/!]=[^=].*)/) do
-        msg_brackets = "[" + @file_path + ":" + line_nb.to_s + "]"
-        msg_error = " Condition and assignment on the same line."
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Condition and assignment on the same line.'
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
     end
   end
 
-def check_empty_line_between_functions
-    @file.scan(/\n{3,}^[^ \n\t]+ [^ \n\t]+\([^\n\t]*\)/).each do |match|
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " Too many empty lines between functions."
+  def check_empty_line_between_functions
+    @file.scan(/\n{3,}^[^ \n\t]+ [^ \n\t]+\([^\n\t]*\)/).each do |_match|
+      msg_brackets = '[' + @file_path + ']'
+      msg_error = ' Too many empty lines between functions.'
       puts(msg_brackets.bold.green + msg_error.bold)
     end
-    @file.scan(/[^\n]\n^[^ \n\t]+ [^ \n\t]+\([^\n\t]*\)/).each do |match|
-      msg_brackets = "[" + @file_path + "]"
-      msg_error = " Missing empty line between functions."
+    @file.scan(/[^\n]\n^[^ \n\t]+ [^ \n\t]+\([^\n\t]*\)/).each do |_match|
+      msg_brackets = '[' + @file_path + ']'
+      msg_error = ' Missing empty line between functions.'
       puts(msg_brackets.bold.green + msg_error.bold)
     end
-end
-  
+  end
+
 end
 
 class UpdateManager
@@ -614,48 +636,46 @@ class UpdateManager
   end
 
   def can_update
-    if not @remote
+    unless @remote
       clean_update_files
       return false
     end
-    @current = %x(cat #{@script_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
-    @latest = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.')
-    @latest_disp = %x(cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1)
-    if @current < @latest
-      return true
-    end
+    @current = `cat #{@script_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.'`
+    @latest = `cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1 | tr -d '.'`
+    @latest_disp = `cat #{@remote_path} | grep 'NormEZ_v' | cut -c 11- | head -1`
+    return true if @current < @latest
     clean_update_files
     false
   end
 
   def update
     if @current < @latest
-      update_msg = %x(cat #{@remote_path} | grep 'Changelog: ' | cut -c 14- | head -1 | tr -d '.')
+      update_msg = `cat #{@remote_path} | grep 'Changelog: ' | cut -c 14- | head -1 | tr -d '.'`
       print("A new version is available: NormEZ v#{@latest_disp}".bold.yellow)
-      print(" => Changelog: ".bold)
-      print("#{update_msg}".bold.blue)
+      print(' => Changelog: '.bold)
+      print(update_msg.to_s.bold.blue)
       response = nil
       Kernel.loop do
-        print("Update NormEZ? [Y/n]: ")
+        print('Update NormEZ? [Y/n]: ')
         response = gets.chomp
-        break if ["N", "n", "no", "Y", "y", "yes", ""].include?(response)
+        break if ['N', 'n', 'no', 'Y', 'y', 'yes', ''].include?(response)
       end
-      if ["N", "n", "no"].include?(response)
-        puts("Update skipped. You can also use the --no-update (or -u) option to prevent auto-updating.".bold.blue)
+      if %w[N n no].include?(response)
+        puts('Update skipped. You can also use the --no-update (or -u) option to prevent auto-updating.'.bold.blue)
         clean_update_files
         return
       end
-      puts("Downloading update...")
+      puts('Downloading update...')
       system("cat #{@script_path} > #{@backup_path}")
       exit_code = system("cat #{@remote_path} > #{@script_path}")
-      if not exit_code
-        print("Error while updating! Cancelling...".bold.red)
+      unless exit_code
+        print('Error while updating! Cancelling...'.bold.red)
         system("cat #{@backup_path} > #{@script_path}")
         clean_update_files
         Kernel.exit(false)
       end
       clean_update_files
-      puts("NormEZ has been successfully updated!".bold.green)
+      puts('NormEZ has been successfully updated!'.bold.green)
       Kernel.exit(true)
     end
   end
@@ -664,17 +684,17 @@ end
 
 $options = {}
 opt_parser = OptionParser.new do |opts|
-  opts.banner = "Usage: `ruby " + $0 + " [-ufmi]`"
-  opts.on("-u", "--no-update", "Don't check for updates") do |o|
+  opts.banner = 'Usage: `ruby ' + $PROGRAM_NAME + ' [-ufmi]`'
+  opts.on('-u', '--no-update', "Don't check for updates") do |o|
     $options[:noupdate] = o
   end
-  opts.on("-f", "--ignore-files", "Ignore forbidden files") do |o|
+  opts.on('-f', '--ignore-files', 'Ignore forbidden files') do |o|
     $options[:ignorefiles] = o
   end
-  opts.on("-m", "--ignore-functions", "Ignore forbidden functions") do |o|
+  opts.on('-m', '--ignore-functions', 'Ignore forbidden functions') do |o|
     $options[:ignorefunctions] = o
   end
-  opts.on("-i", "--ignore-all", "Ignore forbidden files & forbidden functions (same as `-fm`)") do |o|
+  opts.on('-i', '--ignore-all', 'Ignore forbidden files & forbidden functions (same as `-fm`)') do |o|
     $options[:ignorefiles] = o
     $options[:ignorefunctions] = o
   end
@@ -683,16 +703,14 @@ end
 begin
   opt_parser.parse!
 rescue OptionParser::InvalidOption => e
-  puts("Error: " + e.to_s)
+  puts('Error: ' + e.to_s)
   puts(opt_parser.banner)
   Kernel.exit(false)
 end
-  
-if !($options.include?(:noupdate))
-  updater = UpdateManager.new($0)
-  if updater.can_update
-    updater.update
-  end
+
+unless $options.include?(:noupdate)
+  updater = UpdateManager.new($PROGRAM_NAME)
+  updater.update if updater.can_update
 end
 
 files_retriever = FilesRetriever.new
