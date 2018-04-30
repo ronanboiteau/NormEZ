@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# NormEZ_v1.5.0
+# NormEZ_v1.5.1
 # Changelog: Override check of files contained in .gitignore file
 
 require 'optparse'
@@ -98,10 +98,6 @@ class FileManager
     content
   end
 
-  def get_path
-    return @path
-  end
-
 end
 
 class FilesRetriever
@@ -142,14 +138,14 @@ class FilesRetriever
     if @idx_files < @nb_files
       file = FileManager.new(@files[@idx_files], FileType::UNKNOWN)
       @idx_files += 1
-      if @@ignore != nil and is_ignored_file(file.get_path)
+      if @@ignore != nil and is_ignored_file(file.path)
         file = get_next_file
       end
       return file
     elsif @idx_dirs < @nb_dirs
       file = FileManager.new(@dirs[@idx_dirs], FileType::DIRECTORY)
       @idx_dirs += 1
-      if @@ignore != nil and is_ignored_file(file.get_path)
+      if @@ignore != nil and is_ignored_file(file.path)
         file = get_next_file
       end
       return file
