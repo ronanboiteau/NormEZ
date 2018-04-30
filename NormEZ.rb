@@ -57,6 +57,7 @@ class String
   def underline
     add_style(4)
   end
+
 end
 
 module FileType
@@ -100,6 +101,7 @@ class FileManager
   def get_path
     return @path
   end
+
 end
 
 class FilesRetriever
@@ -152,8 +154,9 @@ class FilesRetriever
       end
       return file
     end
-    nil
+    return nil
   end
+
 end
 
 class CodingStyleChecker
@@ -614,6 +617,7 @@ class CodingStyleChecker
       puts(msg_brackets.bold.green + msg_error.bold)
     end
   end
+
 end
 
 class UpdateManager
@@ -675,6 +679,7 @@ class UpdateManager
       Kernel.exit(true)
     end
   end
+
 end
 
 $options = {}
