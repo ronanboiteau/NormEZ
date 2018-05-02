@@ -164,7 +164,9 @@ class CodingStyleChecker
     if (@type != FileType::UNKNOWN) && (@type != FileType::DIRECTORY)
       @file = file_manager.get_content
     end
-    check_file
+    if !@file_path.match('cmake')
+      check_file
+    end
   end
 
   def check_file
