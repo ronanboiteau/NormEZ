@@ -608,9 +608,9 @@ class UpdateManager
     def initialize(script_path)
         path = File.dirname(script_path)
         @script_path = script_path
-        @remote = system("curl -s https://raw.githubusercontent.com/ronanboiteau/NormEZ/master/NormEZ.rb > #{path}/remote")
-        @remote_path = "#{path}/remote"
-        @backup_path = "#{path}/backup"
+        @remote_path = "#{ENV['HOME']}/.remote"
+        @backup_path = "#{ENV['HOME']}/.backup"
+        @remote = system("curl -s https://raw.githubusercontent.com/ronanboiteau/NormEZ/master/NormEZ.rb > #{@remote_path}")
     end
 
     def clean_update_files
