@@ -1,4 +1,4 @@
-# [NormEZ]
+[<img alt="NormEZ logo" src="/artwork/normez-logo.png"/>](https://github.com/ronanboiteau/NormEZ)
 
 Coding-style checker for Epitech students. This program analyzes your C source files for [Epitech coding-style] violations.
 
@@ -158,5 +158,4 @@ You want to add awesome features to NormEZ? Here's how:
 
 <!-- Links -->
 [Epitech coding-style]: /epitech_c_coding_style.pdf
-[NormEZ]: https://github.com/ronanboiteau/NormEZ
 [snake_case]: https://en.wikipedia.org/wiki/Snake_case
