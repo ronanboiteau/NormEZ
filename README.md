@@ -1,4 +1,6 @@
-[<img alt="NormEZ logo" src="/artwork/normez-logo.png"/>](https://github.com/ronanboiteau/NormEZ)
+[<img alt="NormEZ logo" src="/artwork/normez-logo.png" width="400px"/>](https://github.com/ronanboiteau/NormEZ)
+
+<hr/>
 
 Coding-style checker for Epitech students. This program analyzes your C source files for [Epitech coding-style] violations.
 
