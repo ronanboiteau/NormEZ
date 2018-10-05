@@ -359,13 +359,16 @@ class CodingStyleChecker
     line_nb = 1
     @file.each_line do |line|
       indent = 0
-      while line[0] == "\t"
-        line[0] = ''
+      while line[indent] == " "
         indent += 1
       end
-      if line[0] == ' '
+      if line =~ /^\t+.*$/
         msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
-        msg_error = ' Wrong indentation: spaces are not allowed.'
+        msg_error = ' Wrong indentation: tabulation are not allowed.'
+        puts(msg_brackets.bold.green + msg_error.bold)
+      elsif indent % 4 != 0
+        msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+        msg_error = ' Wrong indentation: spaces more than enough.'
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
