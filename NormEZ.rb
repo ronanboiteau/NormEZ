@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.5.2
-# Changelog: Fix error for AUR users
+# NormEZ_v1.6.0
+# Changelog: Changed indentation check to match coding style 3.1
 
 require 'optparse'
 require 'tmpdir'
