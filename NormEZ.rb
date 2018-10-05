@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.6.0
-# Changelog: Changed indentation check to match coding style 3.1
+# NormEZ_v1.6.1
+# Changelog: Changed indentation check to match new coding style
 
 require 'optparse'
 require 'tmpdir'
@@ -364,11 +364,11 @@ class CodingStyleChecker
       end
       if line =~ /^\t+.*$/
         msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
-        msg_error = ' Wrong indentation: tabulation are not allowed.'
+        msg_error = ' Wrong indentation: tabulations are not allowed.'
         puts(msg_brackets.bold.green + msg_error.bold)
       elsif indent % 4 != 0
         msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
-        msg_error = ' Wrong indentation: spaces more than enough.'
+        msg_error = ' Wrong indentation.'
         puts(msg_brackets.bold.green + msg_error.bold)
       end
       line_nb += 1
