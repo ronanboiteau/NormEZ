@@ -192,6 +192,7 @@ class CodingStyleChecker
         check_functions_per_file
         check_function_lines
         check_empty_line_between_functions
+        check_typedef
       end
       check_macro_used_as_constant if @type == FileType::HEADER
     elsif @type == FileType::MAKEFILE
@@ -250,6 +251,20 @@ class CodingStyleChecker
       msg_brackets = '[' + @file_path + ']'
       msg_error = ' Missing or corrupted header.'
       puts(msg_brackets.bold.red + msg_error.bold)
+    end
+  end
+
+  def check_typedef
+    line_nb = 1
+    @file.each_line do |line|
+      if line =~ /typedef/
+        if line !~ /(_t;)$/ 
+          msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
+          msg_error = ' The type names defined with typedef doesn\'t have "_t" in the end.'
+          puts(msg_brackets.bold.red + msg_error.bold)
+        end
+      end
+      line_nb += 1
     end
   end
 
