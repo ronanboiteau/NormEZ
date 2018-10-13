@@ -131,6 +131,7 @@ Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ.
 ### Known issues
 
  - NormEZ doesn't make the difference between strings/comments & code. Examples: a commented forbidden function will be flagged, as well as a commented `;` (multiple assignments on the same line), etc.
+ - The check for functions containing more than 20 lines doesn't work yet with the new coding style v3.1. [See related issue.](https://github.com/ronanboiteau/NormEZ/issues/20)
 
 ### Report a bug
 
