@@ -171,7 +171,7 @@ class CodingStyleChecker
       return
     end
     check_trailing_spaces_tabs
-    check_spaces_in_indentation
+    check_indentation
     if @type != FileType::MAKEFILE
       check_filename
       check_too_many_columns
@@ -355,16 +355,25 @@ class CodingStyleChecker
     end
   end
 
-  def check_spaces_in_indentation
+  def check_indentation
     line_nb = 1
+    if @type == FileType::MAKEFILE
+      valid_indent = '\t'
+      bad_indent_regexp = /^ +.*$/
+      bad_indent_name = 'space'
+    else
+      valid_indent = ' '
+      bad_indent_regexp = /^\t+.*$/
+      bad_indent_name = 'tabulation'
+    end
     @file.each_line do |line|
       indent = 0
-      while line[indent] == " "
+      while line[indent] == valid_indent
         indent += 1
       end
-      if line =~ /^\t+.*$/
+      if line =~ bad_indent_regexp
         msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
-        msg_error = ' Wrong indentation: tabulations are not allowed.'
+        msg_error = " Wrong indentation: #{bad_indent_name}s are not allowed."
         puts(msg_brackets.bold.green + msg_error.bold)
       elsif indent % 4 != 0
         msg_brackets = '[' + @file_path + ':' + line_nb.to_s + ']'
