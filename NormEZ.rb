@@ -11,7 +11,11 @@ class String
   end
 
   def add_style(color_code)
-    "\e[#{color_code}m#{self}\e[0m"
+    if $options.include? :colorless
+      "#{self}"
+    else
+      "\e[#{color_code}m#{self}\e[0m"
+    end
   end
 
   def black
@@ -684,6 +688,9 @@ opt_parser = OptionParser.new do |opts|
   opts.on('-i', '--ignore-all', 'Ignore forbidden files & forbidden functions (same as `-fm`)') do |o|
     $options[:ignorefiles] = o
     $options[:ignorefunctions] = o
+  end
+  opts.on('-c', '--colorless', 'Disable output styling') do |o|
+    $options[:colorless] = o
   end
 end
 

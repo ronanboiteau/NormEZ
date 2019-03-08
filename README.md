@@ -68,6 +68,7 @@ normez
  - `-f` or `--ignore-files`: ignore forbidden files
  - `-m` or `--ignore-functions`: ignore forbidden functions
  - `-i` or `--ignore-all`: ignore forbidden files & forbidden functions (same as `-fm`)
+ - `-c` or `--colorless`: disable all styling on output
 
 ## Features
 
