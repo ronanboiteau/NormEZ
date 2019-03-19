@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# NormEZ_v1.6.1
+# NormEZ_v1.7.0
 # Changelog: Changed indentation check to match new coding style
 
 require 'optparse'
