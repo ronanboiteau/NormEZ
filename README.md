@@ -2,7 +2,7 @@
 
 Coding-style checker for Epitech students. This program analyzes your C source files for [Epitech coding-style] violations.
 
-*FR: Moulinette de norme pour les étudiants d'Epitech. Cette norminette cherche des erreurs de [norme Epitech][Epitech coding-style] dans vos fichers de code source C.*
+*[French] Moulinette de norme pour les étudiants d'Epitech. Cette norminette cherche des erreurs de [norme Epitech][Epitech coding-style] dans vos fichers de code source C.*
 
 ## Table of contents
 
