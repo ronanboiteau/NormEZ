@@ -150,7 +150,7 @@ If you found a bug that isn't listed above in as a known issue, feel free to [cr
 You want to add awesome features to NormEZ? Here's how:
  1. [Fork](https://github.com/ronanboiteau/NormEZ/network/members) NormEZ
  2. Commit & push a new feature to the forked repository
- 3. Open a [pull request](https://github.com/ronanboiteau/NormEZ/pulls) so I can merge your work in this repository :)
+ 3. Open a [pull request](https://github.com/ronanboiteau/NormEZ/pulls) so I can merge your work into this repository :)
 
 ### Contributors
 
