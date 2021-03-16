@@ -49,6 +49,19 @@ normez
 ```
  4. NormEZ will recursively search for `.c`, `.h`, and `.hs` files to analyze in your current directory.
 
+#### Arch Linux
+
+[AUR package](https://aur.archlinux.org/packages/normez/) maintained by [Florian Glorioz](https://github.com/Hapique).
+
+ 1. Install NormEZ:
+```
+yaourt -S normez
+```
+ 2. Run NormEZ with the following command:
+```
+normez
+```
+
 ## Options
 
  - `-u` or `--no-update`: don't check for NormEZ updates
