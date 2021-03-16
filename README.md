@@ -1,8 +1,8 @@
 [<img alt="NormEZ logo" src="/artwork/normez-logo.png" width="400px"/>](https://github.com/ronanboiteau/NormEZ)
 
-Coding-style checker for Epitech students. This program analyzes your C and Haskell source files for [Epitech coding-style] violations.
+Coding-style checker for Epitech students. This program analyzes your C and Haskell source files for [Epitech C coding-style] and [Epitech Haskell coding-style] violations.
 
-*[French] Moulinette de norme pour les étudiants d'Epitech. Cette norminette cherche des erreurs de [norme Epitech][Epitech coding-style] dans vos fichers de code source C et Haskell.*
+*[French] Moulinette de norme pour les étudiants d'Epitech. Cette norminette cherche des erreurs de [norme C Epitech][Epitech C coding-style] et de [norme Haskell Epitech][Epitech Haskell coding-style] dans vos fichers de code source C et Haskell.*
 
 ## Table of contents
 
@@ -10,7 +10,6 @@ Coding-style checker for Epitech students. This program analyzes your C and Hask
   * [Requirements](#requirements)
   * [How to use NormEZ?](#how-to-use-normez)
     * [Manual installation](#manual-installation)
-    * [Arch Linux](#arch-linux)
 * __[Options](#options)__
 * __[Features](#features)__
 * __[To-do](#to-do)__
@@ -41,26 +40,14 @@ sudo dnf install ruby
  1. Clone the repository:
 ```
 git clone https://github.com/ronanboiteau/NormEZ
+cd NormEZ
 ```
- 2. Copy the `NormEZ.rb` executable in your project repository.
+ 2. Run ```make install``` to install NormEZ or ```make uninstall``` to uninstall it
  3. Run NormEZ:
-```
-ruby NormEZ.rb
-```
- 4. NormEZ will recursively search for `.c`, `.h`, and `.hs` files to analyze in your current directory.
-
-#### Arch Linux
-
-[AUR package](https://aur.archlinux.org/packages/normez/) maintained by [Florian Glorioz](https://github.com/Hapique).
-
- 1. Install NormEZ:
-```
-yaourt -S normez
-```
- 2. Run NormEZ with the following command:
 ```
 normez
 ```
+ 4. NormEZ will recursively search for `.c`, `.h`, and `.hs` files to analyze in your current directory.
 
 ## Options
 
@@ -110,12 +97,12 @@ Here are the [Epitech coding-style] violations checked by NormEZ.
 
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Lines with too many columns (> 80).<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Functions that contain more than 10 lines.<br/>
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Filenames that don't respect the [UpperCamelCase] naming convention.<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Filenames that don't respect the [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case) naming convention.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Imbedded `if` blocks.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Mutable variables used.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Missing type signatures.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Useless `do`.<br/>
-<img alt="Minor infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Guards that should be pattern matching *[Not exhaustive]*.<br/>
+<img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> *[Not exhaustive]* Guards that should be pattern matching.<br/>
 
 ## To-do
 
@@ -144,7 +131,7 @@ Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ.
 
 ### Haskell
 
-<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Naming idetifiers according to the [lowerCamelCase] convention.<br/>
+<img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Naming identifiers according to the [lowerCamelCase](https://en.wikipedia.org/wiki/Camel_case) convention.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Forbidden language extentions.<br/>
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> Contents of delivery folder<br/>
 
@@ -154,7 +141,7 @@ Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ.
 
  - NormEZ doesn't make the difference between strings/comments & code. Examples: a commented forbidden function will be flagged, as well as a commented `;` (multiple assignments on the same line), etc.
  - The check for functions containing more than 20 lines doesn't work yet with the new coding style v3.1. [See related issue.](https://github.com/ronanboiteau/NormEZ/issues/20)
- - The check of guards that should be expressed as pattern matching is not very accurate, it only detects guards that use only direct comparisons (or `==`)
+ - The check of guards that should be expressed as pattern matching is not very accurate, it flags guards that use only direct comparisons (or `==`)
 
 ### Report a bug
 
@@ -179,5 +166,6 @@ You want to add awesome features to NormEZ? Here's how:
 [Here](https://github.com/ronanboiteau/NormEZ/graphs/contributors) is the list of NormEZ's contributors. Thanks to everyone who helped developing this project!
 
 <!-- Links -->
-[Epitech coding-style]: /epitech_c_coding_style.pdf
+[Epitech C coding-style]: /epitech_c_coding_style.pdf
+[Epitech Haskell coding-style]: /epitech_c_coding_style.pdf
 [snake_case]: https://en.wikipedia.org/wiki/Snake_case
