@@ -105,9 +105,10 @@ class FilesRetriever
   @@ignore = nil
 
   def initialize
-    @files = Dir['**/*'].select { |f| File.file? f }
+    @files = ARGV.select { |f| File.file? f }
+    @files = Dir['**/*'].select { |f| File.file? f } if @files.count.zero?
+
     if File.file?('.gitignore')
-      line_num = 0
       gitignore = FileManager.new('.gitignore', FileType::UNKNOWN).get_content
       gitignore.gsub!(/\r\n?/, "\n")
       @@ignore = []
