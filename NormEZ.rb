@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.7.0
-# Changelog: Changed indentation check to match new coding style
+# NormEZ_v1.8.0
+# Changelog: Allow running NormEZ on specific files, eg. "ruby NormEZ.rb src/*.c"
 
 require 'optparse'
 require 'tmpdir'
