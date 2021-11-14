@@ -36,8 +36,6 @@ sudo dnf install ruby
 
 ### How to use NormEZ?
 
-#### Manual installation
-
  1. Clone the repository:
 ```
 git clone https://github.com/ronanboiteau/NormEZ
@@ -48,19 +46,6 @@ git clone https://github.com/ronanboiteau/NormEZ
 ruby NormEZ.rb
 ```
  4. NormEZ will recursively search for `.c` and `.h` files to analyze in your current directory.
-
-#### Arch Linux
-
-[AUR package](https://aur.archlinux.org/packages/normez/) maintained by [Florian Glorioz](https://github.com/Hapique).
-
- 1. Install NormEZ:
-```
-yaourt -S normez
-```
- 2. Run NormEZ with the following command:
-```
-normez
-```
 
 ## Options
 
