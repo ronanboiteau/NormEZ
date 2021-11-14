@@ -9,7 +9,6 @@ Coding-style checker for Epitech students. This program analyzes your C and Hask
 * __[Getting started](#getting-started)__
   * [Requirements](#requirements)
   * [How to use NormEZ?](#how-to-use-normez)
-    * [Manual installation](#manual-installation)
 * __[Options](#options)__
 * __[Features](#features)__
 * __[To-do](#to-do)__
@@ -35,32 +34,20 @@ sudo dnf install ruby
 
 ### How to use NormEZ?
 
-#### Manual installation
-
- 1. Clone the repository:
-```
-git clone https://github.com/ronanboiteau/NormEZ
-cd NormEZ
-```
- 2. Run ```make install``` to install NormEZ or ```make uninstall``` to uninstall it
- 3. Run NormEZ:
-```
-normez
-```
- 4. NormEZ will recursively search for `.c`, `.h`, and `.hs` files to analyze in your current directory.
-
-#### Arch Linux
-
-[AUR package](https://aur.archlinux.org/packages/normez/) maintained by [Florian Glorioz](https://github.com/Hapique).
-
- 1. Install NormEZ:
-```
-yaourt -S normez
-```
- 2. Run NormEZ with the following command:
-```
-normez
-```
+1. Clone the repository:
+   ```
+   git clone https://github.com/ronanboiteau/NormEZ
+   ```
+2. Run `make install` to install NormEZ or `make uninstall` to uninstall it
+3. Run NormEZ:
+   ```
+   ruby NormEZ.rb
+   ```
+4. NormEZ will recursively search for `.c` and `.h` files to analyze in your current directory.
+5. You can also pass specific files to check as argument:
+   ```
+   ruby NormEZ.rb src/*.c src/*.h
+   ```
 
 ## Options
 

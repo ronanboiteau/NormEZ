@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.7.0
-# Changelog: Changed indentation check to match new coding style
+# NormEZ_v1.8.0
+# Changelog: Allow running NormEZ on specific files, eg. "ruby NormEZ.rb src/*.c"
 
 require 'optparse'
 require 'tmpdir'
@@ -108,7 +108,9 @@ class FilesRetriever
   @@ignore = nil
 
   def initialize
-    @files = Dir['**/*'].select { |f| File.file? f }
+    @files = ARGV.select { |f| File.file? f }
+    @files = Dir['**/*'].select { |f| File.file? f } if @files.count.zero?
+
     if File.file?('.gitignore')
       gitignore = FileManager.new('.gitignore', FileType::UNKNOWN).get_content
       gitignore.gsub!(/\r\n?/, "\n")
