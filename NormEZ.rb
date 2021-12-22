@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v1.8.0
-# Changelog: Allow running NormEZ on specific files, eg. "ruby NormEZ.rb src/*.c"
+# NormEZ_v2.0.0
+# Changelog: Add support for Haskell + Add coding style infraction codes to the output
 
 require 'optparse'
 require 'tmpdir'
