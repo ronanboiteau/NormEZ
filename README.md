@@ -59,7 +59,7 @@ sudo dnf install ruby
 
 ## Features
 
-Here are the [Epitech coding-style] violations checked by NormEZ.
+Coding-style violations checked by NormEZ.
 
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> = major infraction<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> = minor infraction<br/>
@@ -106,7 +106,7 @@ Here are the [Epitech coding-style] violations checked by NormEZ.
 
 ## To-do
 
-Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ.
+Coding-style violations ***NOT YET*** checked by NormEZ.
 
 <img alt="Major infraction" src="/artwork/direction_arrow_red_up.png" width="12" height="12"/> = major infraction<br/>
 <img alt="Minor infraction" src="/artwork/direction_arrow_green_down.png" width="12" height="12"/> = minor infraction<br/>
