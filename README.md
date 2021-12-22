@@ -141,7 +141,7 @@ Here are the [Epitech coding-style] violations ***NOT YET*** checked by NormEZ.
 
  - NormEZ doesn't make the difference between strings/comments & code. Examples: a commented forbidden function will be flagged, as well as a commented `;` (multiple assignments on the same line), etc.
  - The check for functions containing more than 20 lines doesn't work yet with the new coding style v3.1. [See related issue.](https://github.com/ronanboiteau/NormEZ/issues/20)
- - The check of guards that should be expressed as pattern matching is not very accurate, it flags guards that use only direct comparisons (or `==`)
+ - For Haskell, the check of guards that should be expressed as pattern matching is not very accurate, it flags guards that use only direct comparisons (or `==`)
 
 ### Report a bug
 
