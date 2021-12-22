@@ -28,24 +28,24 @@ Coding-style checker for Epitech students. This program analyzes your C and Hask
 
 #### Installing Ruby on Fedora (Epitech's dump 2017)
 
-```
+```sh
 sudo dnf install ruby
 ```
 
 ### How to use NormEZ?
 
 1. Clone the repository:
-   ```
+   ```sh
    git clone https://github.com/ronanboiteau/NormEZ
    ```
 2. Run `make install` to install NormEZ or `make uninstall` to uninstall it
 3. Run NormEZ:
-   ```
+   ```sh
    ruby NormEZ.rb
    ```
 4. NormEZ will recursively search for `.c` and `.h` files to analyze in your current directory.
 5. You can also pass specific files to check as argument:
-   ```
+   ```sh
    ruby NormEZ.rb src/*.c src/*.h
    ```
 
