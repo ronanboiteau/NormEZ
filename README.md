@@ -166,6 +166,6 @@ You want to add awesome features to NormEZ? Here's how:
 [Here](https://github.com/ronanboiteau/NormEZ/graphs/contributors) is the list of NormEZ's contributors. Thanks to everyone who helped developing this project!
 
 <!-- Links -->
-[Epitech C coding-style]: /epitech_c_coding_style.pdf
-[Epitech Haskell coding-style]: /epitech_haskell_coding_style.pdf
+[Epitech C coding-style]: /epitech_coding_styles_pdf/epitech_c_coding_style.pdf
+[Epitech Haskell coding-style]: /epitech_coding_styles_pdf/epitech_haskell_coding_style.pdf
 [snake_case]: https://en.wikipedia.org/wiki/Snake_case
