@@ -167,5 +167,5 @@ You want to add awesome features to NormEZ? Here's how:
 
 <!-- Links -->
 [Epitech C coding-style]: /epitech_c_coding_style.pdf
-[Epitech Haskell coding-style]: /epitech_c_coding_style.pdf
+[Epitech Haskell coding-style]: /epitech_haskell_coding_style.pdf
 [snake_case]: https://en.wikipedia.org/wiki/Snake_case
