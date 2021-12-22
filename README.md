@@ -26,7 +26,7 @@ Coding-style checker for Epitech students. This program analyzes your C and Hask
 
  - [Ruby](https://www.ruby-lang.org/en/)
 
-#### Installing Ruby on Fedora (Epitech's dump 2017)
+#### Installing Ruby on Fedora (Epitech's 2017 dump)
 
 ```sh
 sudo dnf install ruby
