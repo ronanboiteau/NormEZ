@@ -41,12 +41,12 @@ sudo dnf install ruby
 2. Run `make install` to install NormEZ or `make uninstall` to uninstall it
 3. Run NormEZ:
    ```sh
-   ruby NormEZ.rb
+   normez
    ```
 4. NormEZ will recursively search for `.c` and `.h` files to analyze in your current directory.
 5. You can also pass specific files to check as argument:
    ```sh
-   ruby NormEZ.rb src/*.c src/*.h
+   normez src/*.c src/*.h
    ```
 
 ## Options
