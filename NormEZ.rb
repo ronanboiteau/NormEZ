@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-# NormEZ_v2.0.0
-# Changelog: Add support for Haskell + Add coding style infraction codes to the output
+# NormEZ_v2.0.1
+# Changelog: Remove space between file name and line number in output to improve compatibility with IDEs
 
 require 'optparse'
 require 'tmpdir'
